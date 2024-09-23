@@ -1,0 +1,2 @@
+# pymahjong
+ python mahjong
