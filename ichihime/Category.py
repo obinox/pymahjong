@@ -54,10 +54,10 @@ class Category(tuple, Enum):
     def __init__(self, value: List[Tile]) -> None:
         self._value_ = value
 
-    @staticmethod
-    def allIn(arr: List[Tile], category: tuple[Tile]) -> bool:
-        return all([category.count(x) for x in arr])
+    @classmethod
+    def allIn(cls, arr: List[Tile], category: tuple[Tile] | Self) -> bool:
+        return all([x in category for x in arr])
 
-    @staticmethod
-    def anyIn(arr: List[Tile], category: tuple[Tile]) -> bool:
-        return any([category.count(x) for x in arr])
+    @classmethod
+    def anyIn(cls, arr: List[Tile], category: tuple[Tile] | Self) -> bool:
+        return any([x in category for x in arr])

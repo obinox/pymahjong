@@ -1,13 +1,15 @@
 from enum import Enum
-from typing import Self, Tuple
+from typing import List, Self, Tuple
 
 from ichihime.Agari import Agari
-from ichihime.Block import Block
+from ichihime.Agaru import Agaru
+from ichihime.Block import Block, Mentsu
+from ichihime.Category import Category
 from ichihime.Tenpai import Tenpai
 from ichihime.Tile import Tile
 
 
-class Yaku(Enum, str):
+class Yaku(str, Enum):
     RCH = "riichi", (1, 0)
     DRI = "double riichi", (2, 0)
 
@@ -17,11 +19,16 @@ class Yaku(Enum, str):
     CHK = "chankan", (1, 1)
     HAI = "haitei", (1, 1)
     HOU = "houtei", (1, 1)
-    IPP = "ippatsu", (1, 0)
 
     SMO = "tsumo", (1, 0)
 
     YAK = "yakuhai", (1, 1)
+    HKU = "yakuhai: haku", (1, 1)
+    HTS = "yakuhai: hatsu", (1, 1)
+    CUN = "yakuhai: chun", (1, 1)
+    BAK = "yakuhai: bakaze", (1, 1)
+    JIK = "yakuhai: jikaze", (1, 1)
+
     PFU = "pinfu", (1, 0)
     TAN = "tanyao", (1, 1)
     IPK = "iipeikou", (1, 0)
@@ -68,16 +75,48 @@ class Yaku(Enum, str):
     KMU13 = "kokushi juusanmen machi", (26, 0)
     DSS = "daisuushii", (26, 26)
 
-    def __new__(cls, value: str, han: Tuple[int]) -> Self:
+    def __new__(cls, value: str, han: Tuple[int, int]) -> Self:
         obj = str.__new__(cls, value)
         obj._value_ = value
         obj.han = han
+        obj.menzen, obj.fuuro = han
         return obj
 
-    def __init__(self, value: str, han: int) -> None:
+    def __init__(self, value: str, han: Tuple[int, int]) -> None:
         self._value_ = value
         self.han: int
+        self.menzen: int
+        self.fuuro: int
 
     @staticmethod
-    def yaku(block: Block):
-        block.tenpai
+    def yaku(block: Block, aotenjou: bool = False):
+        out: List[Yaku] = []
+        yakuman: List[Yaku] = []
+        tefuda = list(sum(map(Mentsu.by_int, block.blocks), ()))
+        menzen = all(map(lambda x: x <= Mentsu.KANTSU, block.mentsu))
+        print(menzen, tefuda)
+        if menzen and block.agari.tsumo == Agaru.TSUMO:
+            out.append(Yaku.SMO)
+
+        match block.agari.riichi:
+            case Agaru.RIICHI:
+                out.append(Yaku.RCH)
+            case Agaru.DABURI:
+                out.append(Yaku.DRI)
+
+        match block.agari.aru:
+            case Agaru.RINSHAN:
+                out.append(Yaku.RIN)
+            case Agaru.CHANKAN:
+                out.append(Yaku.CHK)
+            case Agaru.HAITEI:
+                out.append(Yaku.HAI)
+            case Agaru.HOUTEI:
+                out.append(Yaku.HOU)
+
+        match block.agari.ippatsu:
+            case Agaru.IPPATSU:
+                out.append(Yaku.IPP)
+
+        if Category.allIn(tefuda, Category.CHUNCHANHAI):
+            out.append(Yaku.TAN)

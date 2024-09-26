@@ -25,7 +25,7 @@ class Tile(IntEnum):
     """🀎"""
     MAN9 = 0x09, 9, Group.MAN
     """🀏"""
-    # MAN0 = 0x0C, 5, Group.MAN
+    # MAN0 = 0x0D, 5, Group.MAN
     """🀋"""
     PIN1 = 0x11, 1, Group.PIN
     """🀙"""
@@ -45,7 +45,7 @@ class Tile(IntEnum):
     """🀠"""
     PIN9 = 0x19, 9, Group.PIN
     """🀡"""
-    # PIN0 = 0x1C, 5, Group.PIN
+    # PIN0 = 0x1D, 5, Group.PIN
     """🀝"""
     SOU1 = 0x21, 1, Group.SOU
     """🀐"""
@@ -65,7 +65,7 @@ class Tile(IntEnum):
     """🀗"""
     SOU9 = 0x29, 9, Group.SOU
     """🀘"""
-    # SOU0 = 0x2C, 5, Group.SOU
+    # SOU0 = 0x2D, 5, Group.SOU
     """🀔"""
     TON = 0x31, 0, Group.KAZE
     """🀀"""

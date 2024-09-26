@@ -1,7 +1,7 @@
 import random as rand
 from collections import Counter
 from enum import IntEnum
-from typing import List, Self, Tuple
+from typing import List, Literal, Self, Tuple
 
 from ichihime.Agari import Agari
 from ichihime.Agaru import Agaru
@@ -12,10 +12,10 @@ from ichihime.Tile import Tile
 
 
 class Mentsu(IntEnum):
-    SHUNTSH = 0x00, 0
-    KOUTSU = 0x40, 4
+    SHUNTSH = 0x00, 0  # Anjun
+    KOUTSU = 0x40, 4  # Ankou
     TOITSU = 0x80, 0
-    KANTSU = 0xB0, 16
+    KANTSU = 0xB0, 16  # Ankan
 
     MINJUN = 0x100, 0
     MINKOU = 0x140, 2
@@ -35,72 +35,86 @@ class Mentsu(IntEnum):
         self._value_ = value
         self.fu = fu
 
+    @classmethod
+    def by_int(cls, n: int):
+        if n > Mentsu.KANTSU:
+            return (Tile(n % 0x40), Tile(n % 0x40), Tile(n % 0x40), Tile(n % 0x40))
+        elif n > Mentsu.TOITSU:
+            return (Tile(n % 0x40), Tile(n % 0x40))
+        elif n > Mentsu.KOUTSU:
+            return (Tile(n % 0x40), Tile(n % 0x40), Tile(n % 0x40))
+        else:
+            return (Tile(n + 0x00), Tile(n + 0x01), Tile(n + 0x02))
+
 
 class Block:
     _mentsu = []
     _toitsu = []
 
-    for _i in range(0, 3):
-        for _c in range(1, 8):
-            for _ in range(4):
-                _mentsu.append(0x10 * _i + _c)
-    for _i in Tile:
-        _mentsu.append(Mentsu.KOUTSU + _i.value)
-        _toitsu.append(Mentsu.TOITSU + _i.value)
+    @classmethod
+    def rdInit(cls) -> None:
+        for _i in range(0, 3):
+            for _c in range(1, 8):
+                for _ in range(4):
+                    cls._mentsu.append(0x10 * _i + _c)
+        for _i in Tile:
+            cls._mentsu.append(Mentsu.KOUTSU + _i.value)
+            cls._toitsu.append(Mentsu.TOITSU + _i.value)
 
     @classmethod
     def rdBlock(cls) -> tuple[List[Tile], Tile]:
+        cls.rdInit()
         mentsu = sorted(cls._mentsu)
         toitsu = sorted(cls._toitsu)
-        a = 0
+        n = 0
         blocks = []
         const = []
         for i in range(4):
-            a = mentsu[rand.randint(0, len(mentsu) - 1)]
-            const.append(a)
-            if a > Mentsu.KOUTSU:
-                blocks.append((Tile(a % 0x40), Tile(a % 0x40), Tile(a % 0x40)))
-                mentsu.remove(a)
+            n = mentsu[rand.randint(0, len(mentsu) - 1)]
+            const.append(n)
+            if n > Mentsu.KOUTSU:
+                blocks.append((Tile(n % 0x40), Tile(n % 0x40), Tile(n % 0x40)))
+                mentsu.remove(n)
                 for i in range(9):
                     try:
-                        mentsu.remove(a % 0x40 - i % 3)
+                        mentsu.remove(n % 0x40 - i % 3)
                     except:
                         pass
                 try:
-                    toitsu.remove(a % 0x40 + Mentsu.TOITSU)
+                    toitsu.remove(n % 0x40 + Mentsu.TOITSU)
                 except:
                     pass
             else:
-                blocks.append((Tile(a + 0x00), Tile(a + 0x01), Tile(a + 0x02)))
+                blocks.append((Tile(n + 0x00), Tile(n + 0x01), Tile(n + 0x02)))
                 for i in range(3):
                     try:
-                        mentsu.remove(a + i)
+                        mentsu.remove(n + i)
                     except:
                         pass
                 for i in range(3):
-                    if mentsu.count(a - i) < 3:
+                    if mentsu.count(n - i) < 3:
                         try:
-                            mentsu.remove(a + 0x40 - i)
+                            mentsu.remove(n + 0x40 - i)
                         except:
                             pass
                         try:
-                            mentsu.remove(a + 0x41 - i)
+                            mentsu.remove(n + 0x41 - i)
                         except:
                             pass
                         try:
-                            mentsu.remove(a + 0x42 - i)
+                            mentsu.remove(n + 0x42 - i)
                         except:
                             pass
-                    if mentsu.count(a - i) < 2:
+                    if mentsu.count(n - i) < 2:
                         try:
-                            toitsu.remove(a % 0x40 + Mentsu.TOITSU)
+                            toitsu.remove(n % 0x40 + Mentsu.TOITSU)
                         except:
                             pass
-        a = toitsu[rand.randint(0, len(toitsu) - 1)]
-        const.append(a)
-        blocks.append((Tile(a % 0x40), Tile(a % 0x40)))
+        n = toitsu[rand.randint(0, len(toitsu) - 1)]
+        const.append(n)
+        blocks.append((Tile(n % 0x40), Tile(n % 0x40)))
         try:
-            toitsu.remove(a)
+            toitsu.remove(n)
         except:
             pass
 
@@ -116,20 +130,23 @@ class Block:
         self,
         jantou: int | None,
         *mentsu: int,
-        remain: List[Tile] = None,
+        bakaze: Literal[Tile.TON, Tile.NAN, Tile.SHAA, Tile.PEI] = Tile.TON,
+        jikaze: Literal[Tile.TON, Tile.NAN, Tile.SHAA, Tile.PEI] = Tile.TON,
         tenpai: Tenpai = None,
         agari: Agari = Agari(),
+        remain: List[Tile] = None,
     ) -> None:
-
-        self.block = [jantou, *sorted(mentsu)]
         self.jantou = jantou
         self.mentsu = sorted(mentsu)
+        self.blocks = [self.jantou, self.mentsu]
         self.remain = remain
+        self.bakaze = bakaze
+        self.jikaze = jikaze
         self.tenpai = tenpai
         self.agari = agari
 
     def __repr__(self) -> str:
-        return self.block.__str__()
+        return self.blocks.__str__()
 
     # TODO
     def __hash__(self) -> int:
@@ -139,12 +156,13 @@ class Block:
         return self.__hash__() == value.__hash__()
 
     def __str__(self) -> str:
+        wind = f"{(self.bakaze - Tile.TON) * 0x04 + (self.jikaze - Tile.TON):x}"
         if self.jantou >= Mentsu.KOKUSHI:
-            return "0" + "".join([f"{x:x}" for x in self.block])
+            return wind + str(self.tenpai) + str(self.agari) + "".join([f"{x:x}" for x in self.blocks])
         elif self.jantou >= Mentsu.CHIITOI:
-            return "0" + "".join([f"{x:0>2x}" for x in self.block])
+            return wind + str(self.tenpai) + str(self.agari) + "".join([f"{x:0>2x}" for x in self.blocks])
         else:
-            return str(self.agari) + "".join([f"{x:0>3x}" for x in self.block])[1:]
+            return wind + str(self.tenpai) + str(self.agari) + "".join([f"{x:0>3x}" for x in self.blocks])
 
     def __int__(self) -> int:
         return int(str(self), 16)
@@ -165,7 +183,13 @@ class Block:
         return int(self) >= int(value)
 
     @staticmethod
-    def getBlocks(tefuda: List[Tile], tenpai: Tenpai, agari: Agari = Agari()):
+    def getBlocks(
+        tefuda: List[Tile],
+        bakaze: Literal[Tile.TON, Tile.NAN, Tile.SHAA, Tile.PEI],
+        jikaze: Literal[Tile.TON, Tile.NAN, Tile.SHAA, Tile.PEI],
+        tenpai: Tenpai,
+        agari: Agari = Agari(),
+    ):
         stack: List[Block] = []
         target: Block
         sub: List[Tile]
@@ -174,6 +198,7 @@ class Block:
         chiitoi: List[int] = []
         mentsu: int
         counts = List[Tuple[Tile, int]]
+        info = {"bakaze": bakaze, "jikaze": jikaze, "tenpai": tenpai, "agari": agari}
         ## prepare stack
 
         sub = sorted(list(tefuda) + [tenpai.tile])
@@ -188,7 +213,7 @@ class Block:
                 sub.remove(t0)
                 sub.remove(t1)
                 sub.remove(t2)
-                stack.append(Block(None, *[mentsu], remain=sub, tenpai=tenpai, agari=agari))
+                stack.append(Block(None, *[mentsu], remain=sub, **info))
             case Machi.RMR | Machi.PN3:
                 t0, t1, t2 = (
                     Tile(tenpai.tile - 2),
@@ -199,7 +224,7 @@ class Block:
                 sub.remove(t0)
                 sub.remove(t1)
                 sub.remove(t2)
-                stack.append(Block(None, *[mentsu], remain=sub, tenpai=tenpai, agari=agari))
+                stack.append(Block(None, *[mentsu], remain=sub, **info))
             case Machi.KAN:
                 t0, t1, t2 = (
                     Tile(tenpai.tile - 1),
@@ -210,20 +235,20 @@ class Block:
                 sub.remove(t0)
                 sub.remove(t1)
                 sub.remove(t2)
-                stack.append(Block(None, *[mentsu], remain=sub, tenpai=tenpai, agari=agari))
+                stack.append(Block(None, *[mentsu], remain=sub, **info))
             case Machi.SHP:
                 t = Tile(tenpai.tile)
                 mentsu = t.value + Mentsu.KOUTSU
                 sub.remove(t)
                 sub.remove(t)
                 sub.remove(t)
-                stack.append(Block(None, *[mentsu], remain=sub, tenpai=tenpai, agari=agari))
+                stack.append(Block(None, *[mentsu], remain=sub, **info))
             case Machi.TAN:
                 t = Tile(tenpai.tile)
                 jantou = t.value + Mentsu.TOITSU
                 sub.remove(t)
                 sub.remove(t)
-                stack.append(Block(jantou, *[], remain=sub, tenpai=tenpai, agari=agari))
+                stack.append(Block(jantou, *[], remain=sub, **info))
             case Machi.CHI:
                 t = Tile(tenpai.tile)
                 chiitoi.append(t.value + Mentsu.TOITSU + Mentsu.CHIITOI)
@@ -232,7 +257,7 @@ class Block:
                 for i in range(6):
                     t0 = Tile(sub[2 * i])
                     chiitoi.append(t0.value)
-                stack.append(Block(chiitoi[0], *chiitoi[1:], remain=None, tenpai=tenpai, agari=agari))
+                stack.append(Block(chiitoi[0], *chiitoi[1:], remain=None, **info))
             case Machi.KMU | Machi.K13:
                 for i in range(13):
                     t = Tile(Category.YAOCHUUHAI[i])
@@ -240,8 +265,7 @@ class Block:
                         jantou = i + Category.YAOCHUUHAI.index(tenpai.tile) * 0x10 + Mentsu.KOKUSHI
                         sub.remove(t)
                         sub.remove(t)
-                stack.append(Block(jantou, *[Category.YAOCHUUHAI.index(x) for x in sub], remain=None, tenpai=tenpai, agari=agari))
-                del i
+                stack.append(Block(jantou, *[Category.YAOCHUUHAI.index(x) for x in sub], remain=None, **info))
 
         while stack:
             target = stack.pop()
@@ -257,7 +281,7 @@ class Block:
                             sub = sorted(target.remain)
                             sub.remove(t)
                             sub.remove(t)
-                            stack.append(Block(jantou, *target.mentsu, remain=sub, tenpai=tenpai, agari=agari))
+                            stack.append(Block(jantou, *target.mentsu, remain=sub, **info))
                 else:
                     for t, c in counts:
                         if c >= 3:
@@ -266,7 +290,7 @@ class Block:
                             sub.remove(t)
                             sub.remove(t)
                             sub.remove(t)
-                            stack.append(Block(jantou, *sorted(target.mentsu + [mentsu]), remain=sub, tenpai=tenpai, agari=agari))
+                            stack.append(Block(jantou, *sorted(target.mentsu + [mentsu]), remain=sub, **info))
                     for t, c in counts:
                         if c >= 1 and target.remain.count(t + 1) >= 1 and target.remain.count(t + 2) >= 1:
                             t0, t1, t2 = (
@@ -279,7 +303,7 @@ class Block:
                             sub.remove(t0)
                             sub.remove(t1)
                             sub.remove(t2)
-                            stack.append(Block(jantou, *sorted(target.mentsu + [mentsu]), remain=sub, tenpai=tenpai, agari=agari))
-
-        return sorted(list(set(out)))
-        ## get Toitsu(head) not in Tanki machi.s
+                            stack.append(Block(jantou, *sorted(target.mentsu + [mentsu]), remain=sub, **info))
+        out = list(set(out))
+        out.sort()
+        return out

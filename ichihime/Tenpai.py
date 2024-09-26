@@ -15,6 +15,9 @@ class Tenpai:
     def __repr__(self) -> str:
         return f"<{repr(self.tile)}: {repr(self.machi)}>"
 
+    def __str__(self) -> str:
+        return f"{self.tile:0>2x}{self.machi:x}"
+
     def __int__(self) -> int:
         return self.tile * 10 + self.machi
 
