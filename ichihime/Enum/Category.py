@@ -14,7 +14,7 @@ class Category(tuple, Enum):
     SOUZU = (Tile.SOU1, Tile.SOU2, Tile.SOU3, Tile.SOU4, Tile.SOU5, Tile.SOU6, Tile.SOU7, Tile.SOU8, Tile.SOU9)
     """**Bamboos** 🀐🀑🀒🀓🀔🀕🀖🀗🀘"""
 
-    KAZEHAI = (Tile.TON, Tile.NAN, Tile.SHAA, Tile.PEI)
+    KAZEHAI = (Tile.TON, Tile.NAN, Tile.SHA, Tile.PEI)
     """**Winds** 🀀🀁🀂🀃"""
     SANGENPAI = (Tile.HAKU, Tile.HATSU, Tile.CHUN)
     """**Dragons** 🀆🀅🀄"""

@@ -6,6 +6,8 @@ class Agaru(IntEnum):
     TSUMO = 0x00, "tsumo"
     RON = 0x04, "ron"
 
+    OPENDABURI = 0x60, "double open riichi"
+    OPENRI = 0x40, "open riichi"
     DABURI = 0x20, "double riichi"
     RIICHI = 0x10, "riichi"
     IPPATSU = 0x08, "ippatsu"
@@ -14,6 +16,10 @@ class Agaru(IntEnum):
     HOUTEI = 0x06, "houtei"
     CHANKAN = 0x05, "chankan"
     RINSHAN = 0x01, "rinshan"
+
+    TSUBAME = 0x00, "tsubamegaeshi"
+    KANFURI = 0x00, "kanfuri"
+    RENKAIHOU = 0x00, "renkaihou"
 
     def __new__(cls, value: int, string: str):
         obj = int.__new__(cls, value)

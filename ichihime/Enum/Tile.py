@@ -25,7 +25,7 @@ class Tile(IntEnum):
     """🀎"""
     MAN9 = 0x09, 9, Group.MAN
     """🀏"""
-    # MAN0 = 0x0D, 5, Group.MAN
+    MAN0 = 0x0D, 5, Group.MAN
     """🀋"""
     PIN1 = 0x11, 1, Group.PIN
     """🀙"""
@@ -45,7 +45,7 @@ class Tile(IntEnum):
     """🀠"""
     PIN9 = 0x19, 9, Group.PIN
     """🀡"""
-    # PIN0 = 0x1D, 5, Group.PIN
+    PIN0 = 0x1D, 5, Group.PIN
     """🀝"""
     SOU1 = 0x21, 1, Group.SOU
     """🀐"""
@@ -65,13 +65,13 @@ class Tile(IntEnum):
     """🀗"""
     SOU9 = 0x29, 9, Group.SOU
     """🀘"""
-    # SOU0 = 0x2D, 5, Group.SOU
+    SOU0 = 0x2D, 5, Group.SOU
     """🀔"""
     TON = 0x31, 0, Group.KAZE
     """🀀"""
     NAN = 0x32, 0, Group.KAZE
     """🀁"""
-    SHAA = 0x33, 0, Group.KAZE
+    SHA = 0x33, 0, Group.KAZE
     """🀂"""
     PEI = 0x34, 0, Group.KAZE
     """🀃"""
@@ -105,4 +105,4 @@ class ShortTile(Enum):
     m1, m2, m3, m4, m5, m6, m7, m8, m9 = Tile.MAN1, Tile.MAN2, Tile.MAN3, Tile.MAN4, Tile.MAN5, Tile.MAN6, Tile.MAN7, Tile.MAN8, Tile.MAN9
     p1, p2, p3, p4, p5, p6, p7, p8, p9 = Tile.PIN1, Tile.PIN2, Tile.PIN3, Tile.PIN4, Tile.PIN5, Tile.PIN6, Tile.PIN7, Tile.PIN8, Tile.PIN9
     s1, s2, s3, s4, s5, s6, s7, s8, s9 = Tile.SOU1, Tile.SOU2, Tile.SOU3, Tile.SOU4, Tile.SOU5, Tile.SOU6, Tile.SOU7, Tile.SOU8, Tile.SOU9
-    z1, z2, z3, z4, z5, z6, z7 = Tile.TON, Tile.NAN, Tile.SHAA, Tile.PEI, Tile.HAKU, Tile.HATSU, Tile.CHUN
+    z1, z2, z3, z4, z5, z6, z7 = Tile.TON, Tile.NAN, Tile.SHA, Tile.PEI, Tile.HAKU, Tile.HATSU, Tile.CHUN

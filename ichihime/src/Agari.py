@@ -55,7 +55,7 @@ class Agari:
     def __init__(
         self,
         tsumo: Literal[Agaru.TSUMO, Agaru.RON] = Agaru.TSUMO,
-        riichi: Literal[None, Agaru.RIICHI, Agaru.DABURI] = None,
+        riichi: Literal[None, Agaru.RIICHI, Agaru.DABURI, Agaru.OPENRI, Agaru.OPENDABURI] = None,
         aru: Literal[None, Agaru.RINSHAN, Agaru.CHANKAN, Agaru.HAITEI, Agaru.HOUTEI] = None,
         ippatsu: Literal[None, Agaru.IPPATSU] = None,
         kokushi: bool = False,

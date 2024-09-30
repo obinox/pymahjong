@@ -1,23 +1,24 @@
 from ichihime.Enum.Agaru import Agaru
+from ichihime.Enum.Block import Block
 from ichihime.Enum.Category import Category
 from ichihime.Enum.Tile import Tile
 from ichihime.Enum.Yaku import Yaku
 from ichihime.src.Agari import Agari
-from ichihime.src.Block import Block
+from ichihime.src.Blocks import Blocks
 from ichihime.src.Tenpai import Tenpai
 from ichihime.test.BlockTest import Test
 
-print(Block.rdBlock())
+print(Blocks.rdBlock())
 
 ba = Tile.NAN
-ji = Tile.SHAA
+ji = Tile.SHA
 
 
 def blocktest(s):
     print(Tenpai.getTenpai(s))
     for t in Tenpai.getTenpai(s):
-        print(Block.getBlocks(Test.toTile(s), ba, ji, t, Agari.by_int(32)))
-        for b in Block.getBlocks(Test.toTile(s), ba, ji, t, Agari.by_int(32)):
+        print(Blocks.getBlocks(Test.toTile(s), ba, ji, t, Agari.by_int(32)))
+        for b in Blocks.getBlocks(Test.toTile(s), ba, ji, t, Agari.by_int(32)):
             print(b)
 
 
@@ -35,12 +36,13 @@ s5 = "m1m2m3m4m1m2m3m4m1m2m3m4m5"
 blocktest(s5)
 s6 = "p1p2p3p4p1p2p3p4p1p2p3p4p5"
 blocktest(s6)
-y6 = Yaku.yaku(Block.getBlocks(Test.toTile(s6), ba, ji, Tenpai.getTenpai(s6)[0], Agari.by_int(32))[0])
+y6 = Yaku.yaku(Blocks.getBlocks(Test.toTile(s6), ba, ji, Tenpai.getTenpai(s6)[0], Agari.by_int(32))[0])
 print(y6)
+
 s7 = "z2z2z2z3z3z3z5z5z5z6z6z6z4"
 blocktest(s7)
 
-y7 = Yaku.yaku(Block.getBlocks(Test.toTile(s7), ba, ji, Tenpai.getTenpai(s7)[0], Agari.by_int(32))[0])
+y7 = Yaku.yaku(Blocks.getBlocks(Test.toTile(s7), ba, ji, Tenpai.getTenpai(s7)[0], Agari.by_int(32))[0])
 print(y7)
 
 print(Agari.by_int(32).__repr__())

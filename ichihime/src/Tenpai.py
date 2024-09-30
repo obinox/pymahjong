@@ -19,7 +19,7 @@ class Tenpai:
         return f"{self.tile.name} {self.machi.name}"
 
     def __int__(self) -> int:
-        return self.tile * 10 + self.machi
+        return self.tile + self.machi * 0x100
 
     def __hash__(self) -> int:
         return hash(int(self))
