@@ -10,7 +10,7 @@ class Machi(IntEnum):
     PN7 = 0x07, 2
     RML = 0x0A, 1
     RMR = 0x0B, 1
-    CHI = 0x0C, 0
+    CHI = 0x0C, 25
     KMU = 0x0D, 0
     K13 = 0x0E, 0
 

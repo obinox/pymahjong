@@ -15,8 +15,7 @@ class Mentsu(IntEnum):
     KAKAN = 0x180, 8
     DAIMINKAN = 0x1C0, 8
 
-    CHIITOI = 0x400, 25
-    KOKUSHI = 0x800, 8
+    KOKUSHI = 0x400, 8
 
     AKA = 0x200, 0
 
