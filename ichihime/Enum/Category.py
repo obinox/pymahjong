@@ -14,9 +14,9 @@ class Category(tuple, Enum):
     SOUZU = (Tile.SOU1, Tile.SOU2, Tile.SOU3, Tile.SOU4, Tile.SOU5, Tile.SOU6, Tile.SOU7, Tile.SOU8, Tile.SOU9)
     """**Bamboos** 🀐🀑🀒🀓🀔🀕🀖🀗🀘"""
 
-    KAZEHAI = (Tile.TON, Tile.NAN, Tile.SHA, Tile.PEI)
+    KAZEHAI = (Tile.TONN, Tile.NANN, Tile.SHAA, Tile.PEII)
     """**Winds** 🀀🀁🀂🀃"""
-    SANGENPAI = (Tile.HAKU, Tile.HATSU, Tile.CHUN)
+    SANGENPAI = (Tile.HAKU, Tile.HATS, Tile.CHUN)
     """**Dragons** 🀆🀅🀄"""
 
     SHUUPAI = (*MANZU, *PINZU, *SOUZU)
@@ -36,7 +36,7 @@ class Category(tuple, Enum):
     YAOCHUUHAI = (*ROUTOUHAI, *JIHAI)
     """**Terminals** 🀇🀏 🀙🀡 🀐🀘 🀀🀁🀂🀃 🀆🀅🀄"""
 
-    MIDORIPAI = (Tile.SOU2, Tile.SOU3, Tile.SOU4, Tile.SOU6, Tile.SOU8, Tile.HATSU)
+    MIDORIPAI = (Tile.SOU2, Tile.SOU3, Tile.SOU4, Tile.SOU6, Tile.SOU8, Tile.HATS)
     """**Greens** 🀑🀒🀓🀕🀗 🀅"""
     KUROPAI = (Tile.PIN2, Tile.PIN4, Tile.PIN8, *KAZEHAI)
     """**Blacks** 🀚🀜🀠 🀀🀁🀂🀃"""

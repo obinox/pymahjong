@@ -4,6 +4,7 @@ from ichihime.Enum.Agaru import Agaru
 
 
 class Agari:
+    __slots__ = ("tsumo", "riichi", "aru", "ippatsu")
 
     #       0x00             0x10            0x20
     # 0x00  tsumo            RCH SMO         DRI SMO

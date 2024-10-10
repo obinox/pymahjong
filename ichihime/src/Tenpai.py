@@ -8,6 +8,8 @@ from ichihime.test.BlockTest import Test
 
 
 class Tenpai:
+    __slots__ = ("tile", "machi")
+
     def __init__(self, tile: Tile, machi: Machi) -> None:
         self.tile = Tile(tile)
         self.machi = Machi(machi)

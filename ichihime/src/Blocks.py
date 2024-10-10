@@ -13,6 +13,7 @@ from ichihime.src.Tenpai import Tenpai
 
 
 class Blocks:
+    __slots__ = ("jantou", "mentsu", "blocks", "remain", "bakaze", "jikaze", "tenpai", "agari")
     _mentsu = []
     _toitsu = []
 
@@ -95,8 +96,8 @@ class Blocks:
         self,
         jantou: Block | None,
         *mentsu: Block,
-        bakaze: Literal[Tile.TON, Tile.NAN, Tile.SHA, Tile.PEI] = Tile.TON,
-        jikaze: Literal[Tile.TON, Tile.NAN, Tile.SHA, Tile.PEI] = Tile.TON,
+        bakaze: Literal[Tile.TONN, Tile.NANN, Tile.SHAA, Tile.PEII] = Tile.TONN,
+        jikaze: Literal[Tile.TONN, Tile.NANN, Tile.SHAA, Tile.PEII] = Tile.TONN,
         tenpai: Tenpai = None,
         agari: Agari = Agari(),
         remain: List[Tile] = None,
@@ -118,14 +119,9 @@ class Blocks:
         return self.__hash__() == value.__hash__()
 
     def __str__(self) -> str:
-        wind = f"{(self.bakaze - Tile.TON) * 0x04 + (self.jikaze - Tile.TON):x}"
+        wind = f"{(self.bakaze - Tile.TONN) * 0x04 + (self.jikaze - Tile.TONN):x}"
         if self.tenpai.machi == Machi.KMU or self.tenpai.machi == Machi.K13:
-            return (
-                wind
-                + f"{hash(self.tenpai):0>3x}"
-                + f"{hash(self.agari):0>2x}"
-                + "".join([f"{Category.YAOCHUUHAI.index(x - Mentsu.KOKUSHI):x}" for x in self.blocks])
-            )
+            return wind + f"{hash(self.tenpai):0>3x}" + f"{hash(self.agari):0>2x}" + "".join([f"{Category.YAOCHUUHAI.index(x - Mentsu.KOKUSHI):x}" for x in self.blocks])
         elif self.tenpai.machi == Machi.CHI:
             return wind + f"{hash(self.tenpai):0>3x}" + f"{hash(self.agari):0>2x}" + "".join([f"{x:0>2x}" for x in self.blocks])
         else:
@@ -155,8 +151,8 @@ class Blocks:
     @staticmethod
     def getBlocks(
         tefuda: List[Tile],
-        bakaze: Literal[Tile.TON, Tile.NAN, Tile.SHA, Tile.PEI],
-        jikaze: Literal[Tile.TON, Tile.NAN, Tile.SHA, Tile.PEI],
+        bakaze: Literal[Tile.TONN, Tile.NANN, Tile.SHAA, Tile.PEII],
+        jikaze: Literal[Tile.TONN, Tile.NANN, Tile.SHAA, Tile.PEII],
         tenpai: Tenpai,
         agari: Agari = Agari(),
     ):

@@ -13,13 +13,20 @@ class Agaru(IntEnum):
 
     IPPATSU = 0x80, "ippatsu"
 
-    HAITEI = 0x02, "haitei"
-    HOUTEI = 0x0A, "houtei"
-    CHANKAN = 0x09, "chankan"
     RINSHAN = 0x01, "rinshan"
+    HAITEI = 0x02, "haitei"
+    CHANKAN = 0x09, "chankan"
+    HOUTEI = 0x0A, "houtei"
 
-    TSUBAME = 0x0C, "tsubamegaeshi"
-    KANFURI = 0x0C, "kanfuri"
+    # 0 0 1 -> hou 10
+    # 0 1 0 -> tsu 11
+    # 1 0 0 -> kaf 13
+    # 0 1 1 = 3 12
+    # 1 0 1 = 5 14
+    # 1 1 0 = 6 15
+
+    TSUBAME = 0x0B, "tsubamegaeshi"
+    KANFURI = 0x0D, "kanfuri"
     RENKAIHOU = 0x04, "renkaihou"
 
     def __new__(cls, value: int, string: str):

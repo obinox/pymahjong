@@ -67,17 +67,17 @@ class Tile(IntEnum):
     """🀘"""
     SOU0 = 0x2D, 5, Group.SOU
     """🀔"""
-    TON = 0x31, 0, Group.KAZE
+    TONN = 0x31, 0, Group.KAZE
     """🀀"""
-    NAN = 0x32, 0, Group.KAZE
+    NANN = 0x32, 0, Group.KAZE
     """🀁"""
-    SHA = 0x33, 0, Group.KAZE
+    SHAA = 0x33, 0, Group.KAZE
     """🀂"""
-    PEI = 0x34, 0, Group.KAZE
+    PEII = 0x34, 0, Group.KAZE
     """🀃"""
     HAKU = 0x35, 0, Group.SANGEN
     """🀆"""
-    HATSU = 0x36, 0, Group.SANGEN
+    HATS = 0x36, 0, Group.SANGEN
     """🀅"""
     CHUN = 0x37, 0, Group.SANGEN
     """🀄"""
@@ -105,4 +105,5 @@ class ShortTile(Enum):
     m1, m2, m3, m4, m5, m6, m7, m8, m9 = Tile.MAN1, Tile.MAN2, Tile.MAN3, Tile.MAN4, Tile.MAN5, Tile.MAN6, Tile.MAN7, Tile.MAN8, Tile.MAN9
     p1, p2, p3, p4, p5, p6, p7, p8, p9 = Tile.PIN1, Tile.PIN2, Tile.PIN3, Tile.PIN4, Tile.PIN5, Tile.PIN6, Tile.PIN7, Tile.PIN8, Tile.PIN9
     s1, s2, s3, s4, s5, s6, s7, s8, s9 = Tile.SOU1, Tile.SOU2, Tile.SOU3, Tile.SOU4, Tile.SOU5, Tile.SOU6, Tile.SOU7, Tile.SOU8, Tile.SOU9
-    z1, z2, z3, z4, z5, z6, z7 = Tile.TON, Tile.NAN, Tile.SHA, Tile.PEI, Tile.HAKU, Tile.HATSU, Tile.CHUN
+    z1, z2, z3, z4, z5, z6, z7 = Tile.TONN, Tile.NANN, Tile.SHAA, Tile.PEII, Tile.HAKU, Tile.HATS, Tile.CHUN
+    m0, p0, s0 = Tile.MAN0, Tile.PIN0, Tile.SOU0
