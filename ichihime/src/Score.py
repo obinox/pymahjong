@@ -1,9 +1,9 @@
 from typing import Self
 
-from ichihime.Enum.Player import Player
+from ichihime.enums import player as _PL
 
 
-class Score(int):
+class score(int):
     def __init__(self, han: int, fu: int) -> None:
         self.han = han
         if fu != 25:
@@ -27,15 +27,15 @@ class Score(int):
     def __matmul__(self, value: int) -> int:
         k = 0
         match value:
-            case Player.KOOYA:
+            case _PL.KOOYA:
                 k = 2
-            case Player.OYAKO:
+            case _PL.OYAKO:
                 k = 2
-            case Player.KOKO:
+            case _PL.KOKO:
                 k = 1
-            case Player.OYA:
+            case _PL.OYA:
                 k = 6
-            case Player.KO:
+            case _PL.KO:
                 k = 4
             case _:
                 raise ValueError
@@ -55,4 +55,4 @@ class Score(int):
             return ((self * k) // 100 + bool(self % 100)) * 100
 
     def scores(self):
-        return (self @ Player.KO, self @ Player.OYA, self @ Player.KOKO, self @ Player.OYAKO, self @ Player.KOOYA)
+        return (self @ _PL.KO, self @ _PL.OYA, self @ _PL.KOKO, self @ _PL.OYAKO, self @ _PL.KOOYA)

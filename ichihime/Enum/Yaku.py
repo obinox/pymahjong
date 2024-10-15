@@ -7,7 +7,7 @@ from ichihime.Enum.Category import Category
 from ichihime.Enum.Mentsu import Mentsu
 from ichihime.Enum.Tile import Tile
 from ichihime.src.Agari import Agari
-from ichihime.src.Blocks import Blocks
+from ichihime.src.Blocks import blocks
 from ichihime.src.Tenpai import Tenpai
 
 
@@ -91,7 +91,7 @@ class Yaku(str, Enum):
         self.fuuro: int
 
     @staticmethod
-    def yaku(block: Blocks, aotenjou: bool = False):
+    def yaku(block: blocks, aotenjou: bool = False):
         out: List[Yaku] = []
         yakuman: List[Yaku] = []
         tefuda = list(sum(map(lambda x: Block(x).tiles, block.blocks), ()))

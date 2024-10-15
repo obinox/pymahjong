@@ -1,7 +1,7 @@
 from enum import Enum
 from typing import Self
 
-from ichihime.Enum.Tile import ShortTile
+from ..enums import shortTile
 
 
 class Test(str, Enum):
@@ -55,13 +55,13 @@ class Test(str, Enum):
     W91 = "m1m1m1m2m3m4m5m6m7m8m8m9m9"
 
     def __new__(cls, value: str) -> Self:
-        value = tuple(map(lambda x: ShortTile["".join(x)].value, zip(value[::2], value[1::2])))
+        value = tuple(map(lambda x: shortTile["".join(x)].value, zip(value[::2], value[1::2])))
         obj = str.__new__(cls, value)
         obj._value_ = value
         return obj
 
     def __init__(self, value: str):
-        value = tuple(map(lambda x: ShortTile["".join(x)].value, zip(value[::2], value[1::2])))
+        value = tuple(map(lambda x: shortTile["".join(x)].value, zip(value[::2], value[1::2])))
         self._value_ = value
 
     @staticmethod
@@ -69,7 +69,7 @@ class Test(str, Enum):
         if type(string) == str:
             return tuple(
                 map(
-                    lambda x: ShortTile["".join(x)].value,
+                    lambda x: shortTile["".join(x)].value,
                     zip(string[::2], string[1::2]),
                 )
             )

@@ -1,14 +1,14 @@
 from enum import Enum
 from typing import List, Self, Tuple
 
-from ichihime.Enum.Agaru import Agaru
-from ichihime.Enum.Block import Block
-from ichihime.Enum.Category import Category
-from ichihime.Enum.Mentsu import Mentsu
-from ichihime.Enum.Tile import Tile
-from ichihime.src.Agari import Agari
-from ichihime.src.Blocks import Blocks
-from ichihime.src.Tenpai import Tenpai
+from ichihime.enums.Agaru import agaru
+from ichihime.enums.Block import block
+from ichihime.enums.Category import cat
+from ichihime.enums.Mentsu import mentsu
+from ichihime.enums.Tile import tile
+from ichihime.src.Agari import agari
+from ichihime.src.Blocks import blocks
+from ichihime.src.Tenpai import tenpai
 
 
 class Yaku(str, Enum):
@@ -91,47 +91,47 @@ class Yaku(str, Enum):
         self.fuuro: int
 
     @staticmethod
-    def yaku(block: Blocks, aotenjou: bool = False):
+    def yaku(block: blocks, aotenjou: bool = False):
         out: List[Yaku] = []
         yakuman: List[Yaku] = []
-        tefuda = list(sum(map(lambda x: Block(x).tiles, block.blocks), ()))
-        menzen = all(map(lambda x: x <= Mentsu.MINJUN, block.mentsu))
+        tefuda = list(sum(map(lambda x: block(x).tiles, block.blocks), ()))
+        menzen = all(map(lambda x: x <= mentsu.MINJUN, block.mentsu))
         print(menzen, tefuda)
-        if menzen and block.agari.tsumo == Agaru.TSUMO:
+        if menzen and block.agari.tsumo == agaru.TSUMO:
             out.append(Yaku.SMO)
 
         match block.agari.riichi:
-            case Agaru.RIICHI:
+            case agaru.RIICHI:
                 out.append(Yaku.RCH)
-            case Agaru.DABURI:
+            case agaru.DABURI:
                 out.append(Yaku.DRI)
 
         match block.agari.aru:
-            case Agaru.RINSHAN:
+            case agaru.RINSHAN:
                 out.append(Yaku.RIN)
-            case Agaru.CHANKAN:
+            case agaru.CHANKAN:
                 out.append(Yaku.CHK)
-            case Agaru.HAITEI:
+            case agaru.HAITEI:
                 out.append(Yaku.HAI)
-            case Agaru.HOUTEI:
+            case agaru.HOUTEI:
                 out.append(Yaku.HOU)
 
         match block.agari.ippatsu:
-            case Agaru.IPPATSU:
+            case agaru.IPPATSU:
                 out.append(Yaku.IPP)
 
-        if Category.allIn(tefuda, Category.CHUNCHANHAI):
+        if cat.allIn(tefuda, cat.CHUNCHANHAI):
             out.append(Yaku.TAN)
 
-        if block.bakaze + Mentsu.KOUTSU in block.blocks:
+        if block.bakaze + mentsu.KOUTSU in block.blocks:
             out.append(Yaku.BAK)
-        if block.jikaze + Mentsu.KOUTSU in block.blocks:
+        if block.jikaze + mentsu.KOUTSU in block.blocks:
             out.append(Yaku.JIK)
-        if Tile.HAKU + Mentsu.KOUTSU in block.blocks:
+        if tile.HAKU + mentsu.KOUTSU in block.blocks:
             out.append(Yaku.HKU)
-        if Tile.HATS + Mentsu.KOUTSU in block.blocks:
+        if tile.HTSU + mentsu.KOUTSU in block.blocks:
             out.append(Yaku.HTS)
-        if Tile.CHUN + Mentsu.KOUTSU in block.blocks:
+        if tile.CHUN + mentsu.KOUTSU in block.blocks:
             out.append(Yaku.CUN)
 
         return out
