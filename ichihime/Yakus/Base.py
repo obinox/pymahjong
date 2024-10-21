@@ -1,8 +1,18 @@
 from abc import *
 from typing import List, Self
 
+from ichihime.enums import agaru as _ARU
+from ichihime.enums import block as _BL
 from ichihime.enums import cat as _CT
-from ichihime.src import blocks as _BL
+from ichihime.enums import fuuro as _FU
+from ichihime.enums import group as _GR
+from ichihime.enums import machi as _MC
+from ichihime.enums import mentsu as _MT
+from ichihime.enums import player as _PL
+from ichihime.enums import tile as _TL
+from ichihime.src import agari as _ARI
+from ichihime.src import blocks as _BS
+from ichihime.src import tenpai as _TP
 from ichihime.src import yama as _YA
 
 
@@ -27,7 +37,7 @@ class base:
 
     @classmethod
     @abstractmethod
-    def check(cls, block: _BL, yama: _YA = None) -> int:
+    def check(cls, block: _BS, yama: _YA = None, *args) -> int:
         raise NotImplementedError
 
     def __str__(self) -> str:

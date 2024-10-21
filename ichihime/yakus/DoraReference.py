@@ -1,0 +1,91 @@
+from ichihime.enums import tile as _TL
+
+DEFAULT_DORAREF = {
+    ## MANZU
+    _TL.MAN1: [_TL.MAN2],
+    _TL.MAN2: [_TL.MAN3],
+    _TL.MAN3: [_TL.MAN4],
+    _TL.MAN4: [_TL.MAN5, _TL.MAN0],
+    _TL.MAN5: [_TL.MAN6],
+    _TL.MAN0: [_TL.MAN6],
+    _TL.MAN6: [_TL.MAN7],
+    _TL.MAN7: [_TL.MAN8],
+    _TL.MAN8: [_TL.MAN9],
+    _TL.MAN9: [_TL.MAN1],
+    ## PINZU
+    _TL.PIN1: [_TL.PIN2],
+    _TL.PIN2: [_TL.PIN3],
+    _TL.PIN3: [_TL.PIN4],
+    _TL.PIN4: [_TL.PIN5, _TL.PIN0],
+    _TL.PIN5: [_TL.PIN6],
+    _TL.PIN0: [_TL.PIN6],
+    _TL.PIN6: [_TL.PIN7],
+    _TL.PIN7: [_TL.PIN8],
+    _TL.PIN8: [_TL.PIN9],
+    _TL.PIN9: [_TL.PIN1],
+    ## SOUZU
+    _TL.SOU1: [_TL.SOU2],
+    _TL.SOU2: [_TL.SOU3],
+    _TL.SOU3: [_TL.SOU4],
+    _TL.SOU4: [_TL.SOU5, _TL.SOU0],
+    _TL.SOU5: [_TL.SOU6],
+    _TL.SOU0: [_TL.SOU6],
+    _TL.SOU6: [_TL.SOU7],
+    _TL.SOU7: [_TL.SOU8],
+    _TL.SOU8: [_TL.SOU9],
+    _TL.SOU9: [_TL.SOU1],
+    ## KAZE
+    _TL.TONN: [_TL.NANN],
+    _TL.NANN: [_TL.SHAA],
+    _TL.SHAA: [_TL.PEII],
+    _TL.PEII: [_TL.TONN],
+    ## SANGEN
+    _TL.HAKU: [_TL.HTSU],
+    _TL.HTSU: [_TL.CHUN],
+    _TL.CHUN: [_TL.HAKU],
+}
+
+SANMA_DORAREF = {
+    ## MANZU
+    _TL.MAN1: [_TL.MAN9],
+    _TL.MAN2: None,
+    _TL.MAN3: None,
+    _TL.MAN4: None,
+    _TL.MAN5: None,
+    _TL.MAN0: None,
+    _TL.MAN6: None,
+    _TL.MAN7: None,
+    _TL.MAN8: None,
+    _TL.MAN9: [_TL.MAN1],
+    ## PINZU
+    _TL.PIN1: [_TL.PIN2],
+    _TL.PIN2: [_TL.PIN3],
+    _TL.PIN3: [_TL.PIN4],
+    _TL.PIN4: [_TL.PIN5, _TL.PIN0],
+    _TL.PIN5: [_TL.PIN6],
+    _TL.PIN0: [_TL.PIN6],
+    _TL.PIN6: [_TL.PIN7],
+    _TL.PIN7: [_TL.PIN8],
+    _TL.PIN8: [_TL.PIN9],
+    _TL.PIN9: [_TL.PIN1],
+    ## SOUZU
+    _TL.SOU1: [_TL.SOU2],
+    _TL.SOU2: [_TL.SOU3],
+    _TL.SOU3: [_TL.SOU4],
+    _TL.SOU4: [_TL.SOU5, _TL.SOU0],
+    _TL.SOU5: [_TL.SOU6],
+    _TL.SOU0: [_TL.SOU6],
+    _TL.SOU6: [_TL.SOU7],
+    _TL.SOU7: [_TL.SOU8],
+    _TL.SOU8: [_TL.SOU9],
+    _TL.SOU9: [_TL.SOU1],
+    ## KAZE
+    _TL.TONN: [_TL.NANN],
+    _TL.NANN: [_TL.SHAA],
+    _TL.SHAA: [_TL.PEII],
+    _TL.PEII: [_TL.TONN],
+    ## SANGEN
+    _TL.HAKU: [_TL.HTSU],
+    _TL.HTSU: [_TL.CHUN],
+    _TL.CHUN: [_TL.HAKU],
+}

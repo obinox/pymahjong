@@ -8,14 +8,9 @@ class mentsu(IntEnum):
     TOITSU = 0x80, 0
     KANTSU = 0xC0, 16  # Ankan
 
-    MINJUN = 0x100, 0
-    MINKOU = 0x140, 2
-    KAKAN = 0x180, 8
-    DAIMINKAN = 0x1C0, 8
+    KOKUSHI = 0x800, 0
 
-    KOKUSHI = 0x400, 8
-
-    AKA = 0x200, 0
+    AKA = 0x0D - 0x05, 0
 
     def __new__(cls, value: int, fu: int) -> Self:
         obj = int.__new__(cls, value)
@@ -26,3 +21,11 @@ class mentsu(IntEnum):
     def __init__(self, value: int, fu: int) -> None:
         self._value_ = value
         self.fu = fu
+
+
+class fuuro(IntEnum):
+    KAMI = 0x100  # left pon, kan and chii first tile
+    TOI = 0x200  # across pon, kan and chii second tile
+    SHIMO = 0x300  # right pon, kan and chii third tile
+
+    JI = 0x400  # ankan and kakan(pon+kan)

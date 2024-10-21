@@ -2,7 +2,7 @@
 from .Agaru import agaru
 from .Group import group
 from .Machi import machi
-from .Mentsu import mentsu
+from .Mentsu import fuuro, mentsu
 from .Player import player
 
 1
@@ -18,6 +18,7 @@ __all__ = [
     cat.__name__,
     group.__name__,
     machi.__name__,
+    fuuro.__name__,
     mentsu.__name__,
     player.__name__,
     shortTile.__name__,

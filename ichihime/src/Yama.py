@@ -4,6 +4,8 @@ from typing import List
 from ichihime.enums import cat as _CT
 from ichihime.enums import tile as _TL
 
+from .YamaReference import *
+
 
 class yama:
     tiles: List[_TL] = []
@@ -21,27 +23,19 @@ class yama:
         raise AttributeError
 
     @classmethod
-    def setyama(cls, tiles: List[_TL] = None, aka=(1, 1, 1), seed=None, rinshan: int = 4) -> None:
-        if tiles == None:
-            tiles = []
-            for _ in range(4 - aka[0] % 3):
-                tiles.append(_CT.MANZU)
-            for _ in range(aka[0] % 3):
-                tiles.append(_CT.MANZU0)
-            for _ in range(4 - aka[1] % 3):
-                tiles.append(_CT.PINZU)
-            for _ in range(aka[1] % 3):
-                tiles.append(_CT.PINZU0)
-            for _ in range(4 - aka[2] % 3):
-                tiles.append(_CT.SOUZU)
-            for _ in range(aka[2] % 3):
-                tiles.append(_CT.SOUZU0)
-            for _ in range(4):
-                tiles.append(_CT.JIHAI)
-        tiles = sorted(sum(tiles, ()))
+    def setyama(cls, tiles: List[_TL] = None, seed=None, rinshan: int = 4) -> None:
+        if tiles == None or tiles == 4:
+            tiles = list(map(lambda i: [i[0]] * i[1], DEFAULT_YAMA_CONFIG.items()))
+            tiles = sorted(sum(tiles, []))
+        elif tiles == 3:
+            tiles = list(map(lambda i: [i[0]] * i[1], SANMA_YAMA_CONFIG.items()))
+            tiles = sorted(sum(tiles, []))
+        print(tiles)
+
         random.seed(seed)
         random.shuffle(tiles)
         random.seed(None)
+
         cls.is_setted = True
         cls.tiles = tiles
         cls.yama = tiles[10 + rinshan :]

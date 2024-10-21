@@ -3,6 +3,7 @@ from typing import List, Self
 
 from ichihime.enums import cat as _CT
 from ichihime.enums import machi as _MC
+from ichihime.enums import mentsu as _MT
 from ichihime.enums import tile as _TL
 from ichihime.test import testblock as _TB
 
@@ -40,10 +41,17 @@ class tenpai:
         target: List[_TL]
         sub: List[_TL]
         wait = []
+        aka = []
         shapon = []
-        out = []
+        out: List[tenpai] = []
+        akaout: List[tenpai] = []
 
         ## prepare stack
+        tefuda = list(tefuda)
+        for i, t in enumerate(tefuda):
+            if t in _CT.AKAPAI:
+                aka.append(t)
+                tefuda[i] = _TL(t - _MT.AKA)
         for t in tefuda:
             groups[t.group].append(t)
         for g in groups:
@@ -116,6 +124,10 @@ class tenpai:
                                 stack.append(sub)
         wait = list(set(wait))
         shapon = list(set(shapon))
-        out: List[tenpai] = list(set(wait)) + (list(set(shapon)) if len(shapon) >= 2 else [])
+        out = list(set(wait)) + (list(set(shapon)) if len(shapon) >= 2 else [])
+        for o in out:
+            if o.tile.actual == 5 and _TL(o.tile + _MT.AKA) not in aka:
+                akaout.append(tenpai(_TL(o.tile + _MT.AKA), o.machi))
+        out += akaout
         out.sort(key=lambda x: x.tile)
         return out

@@ -12,7 +12,7 @@ from ichihime.src import tenpai as _TP
 
 
 class blocks:
-    __slots__ = ("jantou", "mentsu", "blocks", "remain", "bakaze", "jikaze", "tenpai", "agari")
+    __slots__ = ("jantou", "mentsu", "blocks", "remain", "bakaze", "jikaze", "tenpai", "agari", "nuki")
     __mentsu = []
     __toitsu = []
 
@@ -99,16 +99,18 @@ class blocks:
         jikaze: Literal[_TL.TONN, _TL.NANN, _TL.SHAA, _TL.PEII] = _TL.TONN,
         tenpai: _TP = None,
         agari: _ARI = _ARI(),
+        nuki: int = 0,
         remain: List[_TL] = None,
     ) -> None:
         self.jantou = jantou
         self.mentsu = sorted(mentsu)
-        self.blocks = [self.jantou, *self.mentsu]
+        self.blocks: List[_BL] = [self.jantou, *self.mentsu]
         self.remain = remain
         self.bakaze = bakaze
         self.jikaze = jikaze
         self.tenpai = tenpai
         self.agari = agari
+        self.nuki = nuki
 
     # TODO
     def __hash__(self) -> int:
@@ -125,11 +127,12 @@ class blocks:
                 + f"{hash(self.tenpai):0>3x}"
                 + f"{hash(self.agari):0>2x}"
                 + "".join([f"{_CT.YAOCHUUHAI.index(x - _MT.KOKUSHI):x}" for x in self.blocks])
+                + str(self.nuki)
             )
         elif self.tenpai.machi == _MC.CHI:
-            return wind + f"{hash(self.tenpai):0>3x}" + f"{hash(self.agari):0>2x}" + "".join([f"{x:0>2x}" for x in self.blocks])
+            return wind + f"{hash(self.tenpai):0>3x}" + f"{hash(self.agari):0>2x}" + "".join([f"{x:0>2x}" for x in self.blocks]) + str(self.nuki)
         else:
-            return wind + f"{hash(self.tenpai):0>3x}" + f"{hash(self.agari):0>2x}" + "".join([f"{x:0>3x}" for x in self.blocks])[1:]
+            return wind + f"{hash(self.tenpai):0>3x}" + f"{hash(self.agari):0>2x}" + "".join([f"{x:0>3x}" for x in self.blocks])[1:] + str(self.nuki)
 
     def __repr__(self) -> str:
         return self.blocks.__str__()
@@ -154,52 +157,67 @@ class blocks:
 
     @staticmethod
     def getBlocks(
-        tefuda: List[_TL],
+        tiles: List[_TL],
         bakaze: Literal[_TL.TONN, _TL.NANN, _TL.SHAA, _TL.PEII],
         jikaze: Literal[_TL.TONN, _TL.NANN, _TL.SHAA, _TL.PEII],
         tenpai: _TP,
+        fuuros: List[_BL] = [],
         agari: _ARI = _ARI(),
+        nuki: int = 0,
     ):
         stack: List[blocks] = []
         target: blocks
         sub: List[_TL]
-        out = []
+        out: List[blocks] = []
         jantou: int
         chiitoi: List[int] = []
         mentsu: int
         counts = List[Tuple[_TL, int]]
-        info = {"bakaze": bakaze, "jikaze": jikaze, "tenpai": tenpai, "agari": agari}
-        ## prepare stack
+        aka: List[_TL] = []
+        info = {"bakaze": bakaze, "jikaze": jikaze, "tenpai": tenpai, "agari": agari, "nuki": nuki}
 
-        sub = sorted(list(tefuda) + [tenpai.tile])
+        ## prepare stack
+        tenpaitile = tenpai.tile
+        if tenpaitile in _CT.AKAPAI:
+            aka.append(tenpaitile)
+            tenpaitile = _TL(tenpaitile - _MT.AKA)
+
+        sub = sorted(list(tiles) + [tenpaitile])
+
+        for i, t in enumerate(sub):
+            if t in _CT.AKAPAI:
+                aka.append(t)
+                sub[i] = _TL(t - _MT.AKA)
+        sub.sort()
+
         match tenpai.machi:
             case _MC.RML | _MC.PN7:
-                mentsu = _BL(_TL(tenpai.tile) + _MT.SHUNTSH)
+                mentsu = _BL(_TL(tenpaitile) + _MT.SHUNTSH)
                 for t in mentsu:
                     sub.remove(t)
                 stack.append(blocks(None, *[mentsu], remain=sub, **info))
             case _MC.RMR | _MC.PN3:
-                mentsu = _BL(_TL(tenpai.tile - 2) + _MT.SHUNTSH)
+                mentsu = _BL(_TL(tenpaitile - 2) + _MT.SHUNTSH)
                 for t in mentsu:
                     sub.remove(t)
                 stack.append(blocks(None, *[mentsu], remain=sub, **info))
             case _MC.KAN:
-                mentsu = _BL(_TL(tenpai.tile - 1) + _MT.SHUNTSH)
+                mentsu = _BL(_TL(tenpaitile - 1) + _MT.SHUNTSH)
                 for t in mentsu:
                     sub.remove(t)
                 stack.append(blocks(None, *[mentsu], remain=sub, **info))
             case _MC.SHP:
-                mentsu = _BL(_TL(tenpai.tile) + _MT.KOUTSU)
+                mentsu = _BL(_TL(tenpaitile) + _MT.KOUTSU)
                 for t in mentsu:
                     sub.remove(t)
                 stack.append(blocks(None, *[mentsu], remain=sub, **info))
             case _MC.TAN:
-                jantou = _BL(_TL(tenpai.tile) + _MT.TOITSU)
+                jantou = _BL(_TL(tenpaitile) + _MT.TOITSU)
                 for t in jantou:
                     sub.remove(t)
                 stack.append(blocks(jantou, *[], remain=sub, **info))
             case _MC.CHI:
-                jantou = _BL(_TL(tenpai.tile) + _MT.TOITSU)
+                jantou = _BL(_TL(tenpaitile) + _MT.TOITSU)
                 for t in jantou:
                     sub.remove(t)
                 for i in range(6):
@@ -207,7 +225,7 @@ class blocks:
                     chiitoi.append(_BL(_TL(t) + _MT.TOITSU))
                 stack.append(blocks(jantou, *chiitoi, remain=None, **info))
             case _MC.KMU | _MC.K13:
-                jantou = _BL(_TL(tenpai.tile) + _MT.KOKUSHI)
+                jantou = _BL(_TL(tenpaitile) + _MT.KOKUSHI)
                 for t in jantou:
                     sub.remove(t)
                 stack.append(blocks(jantou, *map(lambda x: _BL(x + _MT.KOKUSHI), sub), remain=None, **info))
@@ -234,14 +252,24 @@ class blocks:
                             sub = sorted(target.remain)
                             for t in mentsu:
                                 sub.remove(t)
-                            stack.append(blocks(jantou, *sorted(target.mentsu + [mentsu]), remain=sub, **info))
+                            stack.append(blocks(target.jantou, *sorted(target.mentsu + [mentsu]), remain=sub, **info))
                     for t0, c in counts:
                         if c >= 1 and target.remain.count(t0 + 1) >= 1 and target.remain.count(t0 + 2) >= 1:
                             mentsu = _BL(_TL(t0) + _MT.SHUNTSH)
                             sub = sorted(target.remain)
                             for t in mentsu:
                                 sub.remove(t)
-                            stack.append(blocks(jantou, *sorted(target.mentsu + [mentsu]), remain=sub, **info))
+                            stack.append(blocks(target.jantou, *sorted(target.mentsu + [mentsu]), remain=sub, **info))
         out = list(set(out))
+        if len(aka) > 0:
+            for oi, bs in enumerate(out):
+                for a in aka:
+                    for i, b in enumerate(bs.blocks):
+                        if _CT.getCat(a)[0][4] in b.tiles:
+                            out[oi].blocks[i] = _BL(bs.blocks[i] + _MT.AKA)
+                            break
         out.sort()
         return out
+
+    def is_menzen(self) -> bool:
+        return True
