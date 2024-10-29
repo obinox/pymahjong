@@ -56,6 +56,10 @@ class cat(tuple, Enum):
     JAKUPAI = (_TL.SOU1, _TL.SOU5, _TL.SOU0, _TL.SOU7, _TL.SOU9, _TL.CHUN)
     """**Peacocks** 🀐🀔🀖🀘 🀄"""
 
+    HONMANZUA = (*MANZUA, *JIHAI)
+    HONPINZUA = (*PINZUA, *JIHAI)
+    HONSOUZUA = (*SOUZUA, *JIHAI)
+
     def __new__(cls, value: Tuple[_TL]) -> Self:
         obj = tuple.__new__(cls, value)
         obj._value_ = value

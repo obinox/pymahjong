@@ -1,5 +1,3 @@
-from collections import Counter
-
 from ichihime.enums import agaru as _ARU
 from ichihime.enums import block as _BL
 from ichihime.enums import cat as _CT
@@ -16,19 +14,17 @@ from ichihime.src import yama as _YA
 from ichihime.yakus import base
 
 
-class iipeikou(base):
-    menzen_han = 1
+class kokushi(base):
+    menzen_han = 13
     fuuro_han = None
 
     is_min = True
-    is_yakuman = False
+    is_yakuman = True
 
-    name = "Iipeikou"
-    eng = "double sequence"
-    abb = "IPK"
+    name = "Kokushi musou"
+    eng = "thirteen orphans"
+    abb = "KMU"
 
     @classmethod
-    def check(cls, block: _BS, yama: _YA = None, *args) -> int:
-        bl, cnt = Counter(block.mentsu).most_common()[1]
-        if bl < _MT.KOUTSU and cnt >= 2:
-            return cls.menzen_han if block.is_menzen() else cls.fuuro_han
+    def check(cls, blocks: _BS, yama: _YA = None, *args) -> int | None:
+        raise NotImplementedError

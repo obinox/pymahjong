@@ -14,24 +14,35 @@ from ichihime.src import yama as _YA
 from ichihime.yakus import base
 
 
-class pinfu(base):
+class tanyao(base):
     menzen_han = 1
-    fuuro_han = None
+    fuuro_han = 1
 
     is_min = True
     is_yakuman = False
 
-    name = "Pinfu"
-    eng = "flat hand"
-    abb = "PFU"
+    name = "Tanyao"
+    eng = "all simples"
+    abb = "TAN"
 
     @classmethod
     def check(cls, blocks: _BS, yama: _YA = None, *args) -> int | None:
-        # TODO change logic to calculating score with no additional fu
-        if (
-            blocks.isMenzen()
-            and all(map(lambda x: x < _MT.KOUTSU, blocks.mentsu))
-            and blocks.jantou.tiles[0] not in {*_CT.SANGENPAI, blocks.bakaze, blocks.jikaze}
-            and blocks.tenpai.machi in {_MC.RML, _MC.RMR}
-        ):
+        if _CT.allIn(sum(map(lambda x: x.tiles, blocks.blocks), ()), _CT.CHUNCHANHAI):
+            return cls.menzen_han if blocks.isMenzen() else cls.fuuro_han
+
+
+class kuitan(base):
+    menzen_han = 1
+    fuuro_han = 1
+
+    is_min = True
+    is_yakuman = False
+
+    name = "Tanyao"
+    eng = "open simples"
+    abb = "TAN"
+
+    @classmethod
+    def check(cls, blocks: _BS, yama: _YA = None, *args) -> int | None:
+        if _CT.allIn(sum(map(lambda x: x.tiles, blocks.blocks), ()), _CT.CHUNCHANHAI):
             return cls.menzen_han if blocks.isMenzen() else cls.fuuro_han

@@ -37,7 +37,7 @@ class base:
 
     @classmethod
     @abstractmethod
-    def check(cls, block: _BS, yama: _YA = None, *args) -> int:
+    def check(cls, blocks: _BS, yama: _YA = None, *args) -> int | None:
         raise NotImplementedError
 
     def __str__(self) -> str:
@@ -45,7 +45,7 @@ class base:
             return self.name
         raise NotImplementedError
 
-    def __repr__(cls) -> str:
-        if cls.abb:
-            return cls.abb
+    def __repr__(self) -> str:
+        if self.abb:
+            return self.abb
         raise NotImplementedError

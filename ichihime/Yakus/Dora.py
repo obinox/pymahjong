@@ -13,7 +13,7 @@ from ichihime.src import tenpai as _TP
 from ichihime.src import yama as _YA
 from ichihime.yakus import base
 
-from .DoraReference import *
+from .Reference.DoraReference import *
 
 
 class dora(base):
@@ -28,9 +28,9 @@ class dora(base):
     abb = "DRA"
 
     @classmethod
-    def check(cls, block: _BS, yama: _YA, ref=None) -> int:
+    def check(cls, blocks: _BS, yama: _YA, ref=None, *args) -> int | None:
         han = 0
-        menzen = block.is_menzen()
+        menzen = blocks.isMenzen()
         doraidc = yama.doraidc[: yama.idc_open + 1]
 
         if ref == 4 or ref == None:
@@ -44,7 +44,7 @@ class dora(base):
 
         dorapai.sort()
 
-        te = sum(map(lambda b: b.tiles, block.blocks), ())
+        te = sum(map(lambda x: x.tiles, blocks.blocks), ())
 
         for t in te:
             for d in dorapai:
@@ -66,9 +66,9 @@ class uradora(base):
     abb = "URD"
 
     @classmethod
-    def check(cls, block: _BS, yama: _YA, ref=None) -> int:
+    def check(cls, blocks: _BS, yama: _YA, ref=None, *args) -> int | None:
         han = 0
-        menzen = block.is_menzen()
+        menzen = blocks.isMenzen()
         udoraidc = yama.udoraidc[: yama.idc_open + 1]
 
         if ref == 4 or ref == None:
@@ -82,7 +82,7 @@ class uradora(base):
 
         udorapai.sort()
 
-        te = sum(map(lambda b: b.tiles, block.blocks), ())
+        te = sum(map(lambda x: x.tiles, blocks.blocks), ())
 
         for t in te:
             for d in udorapai:
@@ -104,11 +104,11 @@ class akadora(base):
     abb = "AKD"
 
     @classmethod
-    def check(cls, block: _BS, yama: _YA, ref=None) -> int:
+    def check(cls, blocks: _BS, yama: _YA, ref=None, *args) -> int | None:
         han = 0
-        menzen = block.is_menzen()
+        menzen = blocks.isMenzen()
 
-        te = sum(map(lambda b: b.tiles, block.blocks), ())
+        te = sum(map(lambda x: x.tiles, blocks.blocks), ())
 
         for t in te:
             for d in _CT.AKAPAI:
@@ -130,10 +130,32 @@ class nukidora(base):
     abb = "NKD"
 
     @classmethod
-    def check(cls, block: _BS, yama: _YA, ref=None) -> int:
+    def check(cls, blocks: _BS, yama: _YA, ref=None, *args) -> int | None:
         han = 0
-        menzen = block.is_menzen()
+        menzen = blocks.isMenzen()
 
-        han += (cls.menzen_han if menzen else cls.fuuro_han) * block.nuki
+        han += (cls.menzen_han if menzen else cls.fuuro_han) * blocks.nuki
 
         return han
+
+
+class ura(uradora):
+    pass
+
+
+class aka(akadora):
+    pass
+
+
+class nuki(nukidora):
+    pass
+
+
+class peidora(nukidora):
+    pass
+
+
+ura = uradora
+aka = akadora
+nuki = nukidora
+peidora = nukidora

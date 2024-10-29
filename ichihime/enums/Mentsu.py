@@ -3,7 +3,7 @@ from typing import Self
 
 
 class mentsu(IntEnum):
-    SHUNTSH = 0x00, 0  # Anjun
+    SHUNTSU = 0x00, 0  # Anjun
     KOUTSU = 0x40, 4  # Ankou
     TOITSU = 0x80, 0
     KANTSU = 0xC0, 16  # Ankan

@@ -14,17 +14,35 @@ from ichihime.src import yama as _YA
 from ichihime.yakus import base
 
 
-class temp(base):
-    menzen_han = 0
-    fuuro_han = None
+class honroutou(base):
+    menzen_han = 2
+    fuuro_han = 2
 
     is_min = True
     is_yakuman = False
 
-    name = "None"
-    eng = "None"
-    abb = "None"
+    name = "Honroutou"
+    eng = "half ends"
+    abb = "HRO"
 
     @classmethod
     def check(cls, blocks: _BS, yama: _YA = None, *args) -> int | None:
-        raise NotImplementedError
+        if all(map(lambda x: x in _CT.YAOCHUUHAI, blocks.getTiles())):
+            return cls.menzen_han if blocks.isMenzen() else cls.fuuro_han
+
+
+class chinroutou(base):
+    menzen_han = 13
+    fuuro_han = 13
+
+    is_min = True
+    is_yakuman = True
+
+    name = "chinroutou"
+    eng = "all ends"
+    abb = "CRO"
+
+    @classmethod
+    def check(cls, blocks: _BS, yama: _YA = None, *args) -> int | None:
+        if all(map(lambda x: x in _CT.ROUTOUHAI, blocks.getTiles())):
+            return cls.menzen_han if blocks.isMenzen() else cls.fuuro_han

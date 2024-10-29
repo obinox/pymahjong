@@ -67,19 +67,19 @@ class tile(IntEnum):
     """🀘"""
     SOU0 = 0x2D, 5, _GR.SOU
     """🀔"""
-    TONN = 0x31, 1, _GR.KZE
+    TONN = 0x31, 0, _GR.KZE
     """🀀"""
-    NANN = 0x32, 2, _GR.KZE
+    NANN = 0x32, 0, _GR.KZE
     """🀁"""
-    SHAA = 0x33, 3, _GR.KZE
+    SHAA = 0x33, 0, _GR.KZE
     """🀂"""
-    PEII = 0x34, 4, _GR.KZE
+    PEII = 0x34, 0, _GR.KZE
     """🀃"""
-    HAKU = 0x35, 1, _GR.SGN
+    HAKU = 0x35, 0, _GR.SGN
     """🀆"""
-    HTSU = 0x36, 2, _GR.SGN
+    HTSU = 0x36, 0, _GR.SGN
     """🀅"""
-    CHUN = 0x37, 3, _GR.SGN
+    CHUN = 0x37, 0, _GR.SGN
     """🀄"""
 
     def __new__(cls, value: int, actual: int, group: _GR) -> Self:

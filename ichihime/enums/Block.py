@@ -1,6 +1,7 @@
 from enum import IntEnum
 from typing import Iterator, List, Self
 
+from ichihime.enums import fuuro as _FU
 from ichihime.enums import mentsu as _MT
 from ichihime.enums import tile as _TL
 
@@ -19,38 +20,38 @@ class subblock(IntEnum):
 
 class block(IntEnum):
     # Manzu shuntsu
-    M123S = _MT.SHUNTSH + _TL.MAN1, (_TL.MAN1, _TL.MAN2, _TL.MAN3)
-    M234S = _MT.SHUNTSH + _TL.MAN2, (_TL.MAN2, _TL.MAN3, _TL.MAN4)
-    M345S = _MT.SHUNTSH + _TL.MAN3, (_TL.MAN3, _TL.MAN4, _TL.MAN5)
-    M456S = _MT.SHUNTSH + _TL.MAN4, (_TL.MAN4, _TL.MAN5, _TL.MAN6)
-    M567S = _MT.SHUNTSH + _TL.MAN5, (_TL.MAN5, _TL.MAN6, _TL.MAN7)
-    M678S = _MT.SHUNTSH + _TL.MAN6, (_TL.MAN6, _TL.MAN7, _TL.MAN8)
-    M789S = _MT.SHUNTSH + _TL.MAN7, (_TL.MAN7, _TL.MAN8, _TL.MAN9)
-    M340S = _MT.SHUNTSH + _TL.MAN3 + _MT.AKA, (_TL.MAN3, _TL.MAN4, _TL.MAN0)
-    M406S = _MT.SHUNTSH + _TL.MAN4 + _MT.AKA, (_TL.MAN4, _TL.MAN0, _TL.MAN6)
-    M067S = _MT.SHUNTSH + _TL.MAN5 + _MT.AKA, (_TL.MAN0, _TL.MAN6, _TL.MAN7)
+    M123S = _MT.SHUNTSU + _TL.MAN1, (_TL.MAN1, _TL.MAN2, _TL.MAN3)
+    M234S = _MT.SHUNTSU + _TL.MAN2, (_TL.MAN2, _TL.MAN3, _TL.MAN4)
+    M345S = _MT.SHUNTSU + _TL.MAN3, (_TL.MAN3, _TL.MAN4, _TL.MAN5)
+    M456S = _MT.SHUNTSU + _TL.MAN4, (_TL.MAN4, _TL.MAN5, _TL.MAN6)
+    M567S = _MT.SHUNTSU + _TL.MAN5, (_TL.MAN5, _TL.MAN6, _TL.MAN7)
+    M678S = _MT.SHUNTSU + _TL.MAN6, (_TL.MAN6, _TL.MAN7, _TL.MAN8)
+    M789S = _MT.SHUNTSU + _TL.MAN7, (_TL.MAN7, _TL.MAN8, _TL.MAN9)
+    M340S = _MT.SHUNTSU + _TL.MAN3 + _MT.AKA, (_TL.MAN3, _TL.MAN4, _TL.MAN0)
+    M406S = _MT.SHUNTSU + _TL.MAN4 + _MT.AKA, (_TL.MAN4, _TL.MAN0, _TL.MAN6)
+    M067S = _MT.SHUNTSU + _TL.MAN5 + _MT.AKA, (_TL.MAN0, _TL.MAN6, _TL.MAN7)
     # Pinzu shuntsu
-    P123S = _MT.SHUNTSH + _TL.PIN1, (_TL.PIN1, _TL.PIN2, _TL.PIN3)
-    P234S = _MT.SHUNTSH + _TL.PIN2, (_TL.PIN2, _TL.PIN3, _TL.PIN4)
-    P345S = _MT.SHUNTSH + _TL.PIN3, (_TL.PIN3, _TL.PIN4, _TL.PIN5)
-    P456S = _MT.SHUNTSH + _TL.PIN4, (_TL.PIN4, _TL.PIN5, _TL.PIN6)
-    P567S = _MT.SHUNTSH + _TL.PIN5, (_TL.PIN5, _TL.PIN6, _TL.PIN7)
-    P678S = _MT.SHUNTSH + _TL.PIN6, (_TL.PIN6, _TL.PIN7, _TL.PIN8)
-    P789S = _MT.SHUNTSH + _TL.PIN7, (_TL.PIN7, _TL.PIN8, _TL.PIN9)
-    P340S = _MT.SHUNTSH + _TL.PIN3 + _MT.AKA, (_TL.PIN3, _TL.PIN4, _TL.PIN0)
-    P406S = _MT.SHUNTSH + _TL.PIN4 + _MT.AKA, (_TL.PIN4, _TL.PIN0, _TL.PIN6)
-    P067S = _MT.SHUNTSH + _TL.PIN5 + _MT.AKA, (_TL.PIN0, _TL.PIN6, _TL.PIN7)
+    P123S = _MT.SHUNTSU + _TL.PIN1, (_TL.PIN1, _TL.PIN2, _TL.PIN3)
+    P234S = _MT.SHUNTSU + _TL.PIN2, (_TL.PIN2, _TL.PIN3, _TL.PIN4)
+    P345S = _MT.SHUNTSU + _TL.PIN3, (_TL.PIN3, _TL.PIN4, _TL.PIN5)
+    P456S = _MT.SHUNTSU + _TL.PIN4, (_TL.PIN4, _TL.PIN5, _TL.PIN6)
+    P567S = _MT.SHUNTSU + _TL.PIN5, (_TL.PIN5, _TL.PIN6, _TL.PIN7)
+    P678S = _MT.SHUNTSU + _TL.PIN6, (_TL.PIN6, _TL.PIN7, _TL.PIN8)
+    P789S = _MT.SHUNTSU + _TL.PIN7, (_TL.PIN7, _TL.PIN8, _TL.PIN9)
+    P340S = _MT.SHUNTSU + _TL.PIN3 + _MT.AKA, (_TL.PIN3, _TL.PIN4, _TL.PIN0)
+    P406S = _MT.SHUNTSU + _TL.PIN4 + _MT.AKA, (_TL.PIN4, _TL.PIN0, _TL.PIN6)
+    P067S = _MT.SHUNTSU + _TL.PIN5 + _MT.AKA, (_TL.PIN0, _TL.PIN6, _TL.PIN7)
     # Souzu shuntsu
-    S123S = _MT.SHUNTSH + _TL.SOU1, (_TL.SOU1, _TL.SOU2, _TL.SOU3)
-    S234S = _MT.SHUNTSH + _TL.SOU2, (_TL.SOU2, _TL.SOU3, _TL.SOU4)
-    S345S = _MT.SHUNTSH + _TL.SOU3, (_TL.SOU3, _TL.SOU4, _TL.SOU5)
-    S456S = _MT.SHUNTSH + _TL.SOU4, (_TL.SOU4, _TL.SOU5, _TL.SOU6)
-    S567S = _MT.SHUNTSH + _TL.SOU5, (_TL.SOU5, _TL.SOU6, _TL.SOU7)
-    S678S = _MT.SHUNTSH + _TL.SOU6, (_TL.SOU6, _TL.SOU7, _TL.SOU8)
-    S789S = _MT.SHUNTSH + _TL.SOU7, (_TL.SOU7, _TL.SOU8, _TL.SOU9)
-    S340S = _MT.SHUNTSH + _TL.SOU3 + _MT.AKA, (_TL.SOU3, _TL.SOU4, _TL.SOU0)
-    S406S = _MT.SHUNTSH + _TL.SOU4 + _MT.AKA, (_TL.SOU4, _TL.SOU0, _TL.SOU6)
-    S067S = _MT.SHUNTSH + _TL.SOU5 + _MT.AKA, (_TL.SOU0, _TL.SOU6, _TL.SOU7)
+    S123S = _MT.SHUNTSU + _TL.SOU1, (_TL.SOU1, _TL.SOU2, _TL.SOU3)
+    S234S = _MT.SHUNTSU + _TL.SOU2, (_TL.SOU2, _TL.SOU3, _TL.SOU4)
+    S345S = _MT.SHUNTSU + _TL.SOU3, (_TL.SOU3, _TL.SOU4, _TL.SOU5)
+    S456S = _MT.SHUNTSU + _TL.SOU4, (_TL.SOU4, _TL.SOU5, _TL.SOU6)
+    S567S = _MT.SHUNTSU + _TL.SOU5, (_TL.SOU5, _TL.SOU6, _TL.SOU7)
+    S678S = _MT.SHUNTSU + _TL.SOU6, (_TL.SOU6, _TL.SOU7, _TL.SOU8)
+    S789S = _MT.SHUNTSU + _TL.SOU7, (_TL.SOU7, _TL.SOU8, _TL.SOU9)
+    S340S = _MT.SHUNTSU + _TL.SOU3 + _MT.AKA, (_TL.SOU3, _TL.SOU4, _TL.SOU0)
+    S406S = _MT.SHUNTSU + _TL.SOU4 + _MT.AKA, (_TL.SOU4, _TL.SOU0, _TL.SOU6)
+    S067S = _MT.SHUNTSU + _TL.SOU5 + _MT.AKA, (_TL.SOU0, _TL.SOU6, _TL.SOU7)
 
     # Manzu koutsu
     M1KOU = _MT.KOUTSU + _TL.MAN1, (_TL.MAN1, _TL.MAN1, _TL.MAN1)
@@ -58,33 +59,33 @@ class block(IntEnum):
     M3KOU = _MT.KOUTSU + _TL.MAN3, (_TL.MAN3, _TL.MAN3, _TL.MAN3)
     M4KOU = _MT.KOUTSU + _TL.MAN4, (_TL.MAN4, _TL.MAN4, _TL.MAN4)
     M5KOU = _MT.KOUTSU + _TL.MAN5, (_TL.MAN5, _TL.MAN5, _TL.MAN5)
+    M0KOU = _MT.KOUTSU + _TL.MAN5 + _MT.AKA, (_TL.MAN5, _TL.MAN5, _TL.MAN0)
     M6KOU = _MT.KOUTSU + _TL.MAN6, (_TL.MAN6, _TL.MAN6, _TL.MAN6)
     M7KOU = _MT.KOUTSU + _TL.MAN7, (_TL.MAN7, _TL.MAN7, _TL.MAN7)
     M8KOU = _MT.KOUTSU + _TL.MAN8, (_TL.MAN8, _TL.MAN8, _TL.MAN8)
     M9KOU = _MT.KOUTSU + _TL.MAN9, (_TL.MAN9, _TL.MAN9, _TL.MAN9)
-    M0KOU = _MT.KOUTSU + _TL.MAN5 + _MT.AKA, (_TL.MAN5, _TL.MAN5, _TL.MAN0)
     # Pinzu koutsu
     P1KOU = _MT.KOUTSU + _TL.PIN1, (_TL.PIN1, _TL.PIN1, _TL.PIN1)
     P2KOU = _MT.KOUTSU + _TL.PIN2, (_TL.PIN2, _TL.PIN2, _TL.PIN2)
     P3KOU = _MT.KOUTSU + _TL.PIN3, (_TL.PIN3, _TL.PIN3, _TL.PIN3)
     P4KOU = _MT.KOUTSU + _TL.PIN4, (_TL.PIN4, _TL.PIN4, _TL.PIN4)
     P5KOU = _MT.KOUTSU + _TL.PIN5, (_TL.PIN5, _TL.PIN5, _TL.PIN5)
+    P0KOU = _MT.KOUTSU + _TL.PIN5 + _MT.AKA, (_TL.PIN5, _TL.PIN5, _TL.PIN0)
     P6KOU = _MT.KOUTSU + _TL.PIN6, (_TL.PIN6, _TL.PIN6, _TL.PIN6)
     P7KOU = _MT.KOUTSU + _TL.PIN7, (_TL.PIN7, _TL.PIN7, _TL.PIN7)
     P8KOU = _MT.KOUTSU + _TL.PIN8, (_TL.PIN8, _TL.PIN8, _TL.PIN8)
     P9KOU = _MT.KOUTSU + _TL.PIN9, (_TL.PIN9, _TL.PIN9, _TL.PIN9)
-    P0KOU = _MT.KOUTSU + _TL.PIN5 + _MT.AKA, (_TL.PIN5, _TL.PIN5, _TL.PIN0)
     # Souzu koutsu
     S1KOU = _MT.KOUTSU + _TL.SOU1, (_TL.SOU1, _TL.SOU1, _TL.SOU1)
     S2KOU = _MT.KOUTSU + _TL.SOU2, (_TL.SOU2, _TL.SOU2, _TL.SOU2)
     S3KOU = _MT.KOUTSU + _TL.SOU3, (_TL.SOU3, _TL.SOU3, _TL.SOU3)
     S4KOU = _MT.KOUTSU + _TL.SOU4, (_TL.SOU4, _TL.SOU4, _TL.SOU4)
     S5KOU = _MT.KOUTSU + _TL.SOU5, (_TL.SOU5, _TL.SOU5, _TL.SOU5)
+    S0KOU = _MT.KOUTSU + _TL.SOU5 + _MT.AKA, (_TL.SOU5, _TL.SOU5, _TL.SOU0)
     S6KOU = _MT.KOUTSU + _TL.SOU6, (_TL.SOU6, _TL.SOU6, _TL.SOU6)
     S7KOU = _MT.KOUTSU + _TL.SOU7, (_TL.SOU7, _TL.SOU7, _TL.SOU7)
     S8KOU = _MT.KOUTSU + _TL.SOU8, (_TL.SOU8, _TL.SOU8, _TL.SOU8)
     S9KOU = _MT.KOUTSU + _TL.SOU9, (_TL.SOU9, _TL.SOU9, _TL.SOU9)
-    S0KOU = _MT.KOUTSU + _TL.SOU5 + _MT.AKA, (_TL.SOU5, _TL.SOU5, _TL.SOU0)
     # Jihai koutsu
     Z1KOU = _MT.KOUTSU + _TL.TONN, (_TL.TONN, _TL.TONN, _TL.TONN)
     Z2KOU = _MT.KOUTSU + _TL.NANN, (_TL.NANN, _TL.NANN, _TL.NANN)
@@ -209,3 +210,27 @@ class block(IntEnum):
 
     def __repr__(self) -> str:
         return self.name
+
+    @staticmethod
+    def isShuntsu(b: Self) -> bool:
+        return _MT.SHUNTSU < b % _FU.KAMI < _MT.KOUTSU
+
+    @staticmethod
+    def isKoutsu(b: Self) -> bool:
+        return _MT.KOUTSU < b % _FU.KAMI < _MT.TOITSU
+
+    @staticmethod
+    def isToitsu(b: Self) -> bool:
+        return _MT.TOITSU < b % _FU.KAMI < _MT.KANTSU
+
+    @staticmethod
+    def isKantsu(b: Self) -> bool:
+        return _MT.KANTSU < b % _FU.KAMI < _FU.KAMI
+
+    @staticmethod
+    def isAnkou(b: Self) -> bool:
+        return block.isKoutsu(b) and b < _FU.KAMI
+
+    @staticmethod
+    def isAnkan(b: Self) -> bool:
+        return block.isKantsu(b) and b < _FU.KAMI

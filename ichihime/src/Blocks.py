@@ -4,6 +4,7 @@ from typing import List, Literal, Tuple
 
 from ichihime.enums import block as _BL
 from ichihime.enums import cat as _CT
+from ichihime.enums import fuuro as _FU
 from ichihime.enums import machi as _MC
 from ichihime.enums import mentsu as _MT
 from ichihime.enums import tile as _TL
@@ -12,7 +13,7 @@ from ichihime.src import tenpai as _TP
 
 
 class blocks:
-    __slots__ = ("jantou", "mentsu", "blocks", "remain", "bakaze", "jikaze", "tenpai", "agari", "nuki")
+    __slots__ = ("jantou", "mentsu", "blocks", "remain", "bakaze", "jikaze", "tenpai", "agari", "nuki", "bagen", "jigen")
     __mentsu = []
     __toitsu = []
 
@@ -192,17 +193,17 @@ class blocks:
 
         match tenpai.machi:
             case _MC.RML | _MC.PN7:
-                mentsu = _BL(_TL(tenpaitile) + _MT.SHUNTSH)
+                mentsu = _BL(_TL(tenpaitile) + _MT.SHUNTSU)
                 for t in mentsu:
                     sub.remove(t)
                 stack.append(blocks(None, *[mentsu], remain=sub, **info))
             case _MC.RMR | _MC.PN3:
-                mentsu = _BL(_TL(tenpaitile - 2) + _MT.SHUNTSH)
+                mentsu = _BL(_TL(tenpaitile - 2) + _MT.SHUNTSU)
                 for t in mentsu:
                     sub.remove(t)
                 stack.append(blocks(None, *[mentsu], remain=sub, **info))
             case _MC.KAN:
-                mentsu = _BL(_TL(tenpaitile - 1) + _MT.SHUNTSH)
+                mentsu = _BL(_TL(tenpaitile - 1) + _MT.SHUNTSU)
                 for t in mentsu:
                     sub.remove(t)
                 stack.append(blocks(None, *[mentsu], remain=sub, **info))
@@ -254,12 +255,13 @@ class blocks:
                                 sub.remove(t)
                             stack.append(blocks(target.jantou, *sorted(target.mentsu + [mentsu]), remain=sub, **info))
                     for t0, c in counts:
-                        if c >= 1 and target.remain.count(t0 + 1) >= 1 and target.remain.count(t0 + 2) >= 1:
-                            mentsu = _BL(_TL(t0) + _MT.SHUNTSH)
-                            sub = sorted(target.remain)
-                            for t in mentsu:
-                                sub.remove(t)
-                            stack.append(blocks(target.jantou, *sorted(target.mentsu + [mentsu]), remain=sub, **info))
+                        if 0 < t0.actual < 8:
+                            if c >= 1 and target.remain.count(t0 + 1) >= 1 and target.remain.count(t0 + 2) >= 1:
+                                mentsu = _BL(_TL(t0) + _MT.SHUNTSU)
+                                sub = sorted(target.remain)
+                                for t in mentsu:
+                                    sub.remove(t)
+                                stack.append(blocks(target.jantou, *sorted(target.mentsu + [mentsu]), remain=sub, **info))
         out = list(set(out))
         if len(aka) > 0:
             for oi, bs in enumerate(out):
@@ -271,5 +273,17 @@ class blocks:
         out.sort()
         return out
 
-    def is_menzen(self) -> bool:
+    def isMenzen(self) -> bool:
         return True
+
+    def getShuntsu(self) -> List[_BL]:
+        return [x for x in self.mentsu if _MT.SHUNTSU < x % _FU.KAMI < _MT.KOUTSU]
+
+    def getKoutsu(self) -> List[_BL]:
+        return [x for x in self.mentsu if _MT.KOUTSU < x % _FU.KAMI < _MT.TOITSU or _MT.TOITSU < x % _FU.KAMI < _MT.KANTSU]
+
+    def isInclude(self, tile: _TL) -> bool:
+        return any(map(lambda x: _BL(x % _FU.KAMI) in {_BL(tile + _MT.KOUTSU), _BL(tile + _MT.KANTSU)}, self.blocks))
+
+    def getTiles(self) -> List[_TL]:
+        return sum(map(lambda x: x.tiles, self.blocks), ())

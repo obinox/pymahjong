@@ -25,10 +25,10 @@ class yama:
     @classmethod
     def setyama(cls, tiles: List[_TL] = None, seed=None, rinshan: int = 4) -> None:
         if tiles == None or tiles == 4:
-            tiles = list(map(lambda i: [i[0]] * i[1], DEFAULT_YAMA_CONFIG.items()))
+            tiles = list(map(lambda x: [x[0]] * x[1], DEFAULT_YAMA_CONFIG.items()))
             tiles = sorted(sum(tiles, []))
         elif tiles == 3:
-            tiles = list(map(lambda i: [i[0]] * i[1], SANMA_YAMA_CONFIG.items()))
+            tiles = list(map(lambda x: [x[0]] * x[1], SANMA_YAMA_CONFIG.items()))
             tiles = sorted(sum(tiles, []))
         print(tiles)
 

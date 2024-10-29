@@ -12,6 +12,7 @@ from ichihime.yakus import *
 # print(oya << ko)
 # print(f"{ko}:ko {oya}:oya")
 yama.setyama()
+yama.idc_open = 4
 # print(yama.tiles)
 # print(yama.yama)
 print(yama.doraidc)
@@ -22,9 +23,9 @@ print(yama.udoraidc)
 # print(a)
 # print(base.__str__())
 
-
 ba = tile.NANN
 ji = tile.SHAA
+
 s6 = "p1p2p3p2p3p4p3p4p5p4p0p6z1"
 b0 = blocks.getBlocks(testblock.toTile(s6), ba, ji, tenpai.getTenpai(s6)[0], agari.by_int(32), nuki=2)
 print(tenpai.getTenpai(s6))
@@ -46,3 +47,114 @@ print(rb.blocks)
 print(iipeikou().check(rb, yama))
 print(ryanpeikou().check(rb, yama))
 print(pinfu().check(rb, yama))
+print(tanyao().check(rb, yama))
+
+rs = "m1m2m3m4m0m6m7m8m9m1m2m3m4"
+rbs = blocks.getBlocks(testblock.toTile(rs), ba, ji, tenpai.getTenpai(rs)[1], agari.by_int(32), nuki=2)
+print(tenpai.getTenpai(rs))
+rb = rbs[0]
+print(rbs)
+print(rb.blocks)
+print(ittsu().check(rb, yama))
+print(ikkitsuukan().check(rb, yama))
+
+rs = "m1m2m3p1p2p3s1s2s3m8m9m9m9"
+rbs = blocks.getBlocks(testblock.toTile(rs), ba, ji, tenpai.getTenpai(rs)[0], agari.by_int(32), nuki=2)
+print(tenpai.getTenpai(rs))
+rb = rbs[0]
+print(rbs)
+print(rb.blocks)
+
+print(doukou().check(rb, yama))
+print(doujun().check(rb, yama))
+print(chanta().check(rb, yama))
+print(junchan().check(rb, yama))
+
+rs = "m3m3m3p3p3p3s3s3s3z1z1z2z2"
+rbs = blocks.getBlocks(testblock.toTile(rs), ba, ji, tenpai.getTenpai(rs)[1], agari.by_int(32), nuki=2)
+print(tenpai.getTenpai(rs))
+rb = rbs[0]
+print(rbs)
+print(rb.blocks)
+print(doukou().check(rb, yama))
+print(doujun().check(rb, yama))
+
+
+rs = "z1z1z1z2z2z2z3z3z3z4z4z4z5"
+rbs = blocks.getBlocks(testblock.toTile(rs), ba, ji, tenpai.getTenpai(rs)[0], agari.by_int(32), nuki=2)
+print(tenpai.getTenpai(rs))
+rb = rbs[0]
+print(rbs)
+print(rb.blocks)
+print(bakaze().check(rb, yama))
+print(jikaze().check(rb, yama))
+print(ton().check(rb, yama))
+print(nan().check(rb, yama))
+print(shaa().check(rb, yama))
+print(pei().check(rb, yama))
+
+
+rs = "z5z5z5z6z6z6z7z7z7z1z1z2z2"
+rbs = blocks.getBlocks(testblock.toTile(rs), ba, ji, tenpai.getTenpai(rs)[1], agari.by_int(32), nuki=2)
+print(tenpai.getTenpai(rs))
+rb = rbs[0]
+print(rbs)
+print(rb.blocks)
+print(haku().check(rb, yama))
+print(hatsu().check(rb, yama))
+print(chun().check(rb, yama))
+print(bakaze().check(rb, yama))
+print(jikaze().check(rb, yama))
+print(ton().check(rb, yama))
+print(nan().check(rb, yama))
+print(shaa().check(rb, yama))
+print(pei().check(rb, yama))
+
+
+rs = "z5z5z5z6z6z6z7z7z7z1z1z2z2"
+rbs = blocks.getBlocks(testblock.toTile(rs), ba, ji, tenpai.getTenpai(rs)[1], agari.by_int(32), nuki=2)
+print(tenpai.getTenpai(rs))
+rb = rbs[0]
+print(rbs)
+print(rb.blocks)
+print(honitsu().check(rb, yama))
+print(chiniisou().check(rb, yama))
+print(shousangen().check(rb, yama))
+
+rs = "m1m1m1m2m3m4m5m6m7m8m9m9m9"
+rbs = blocks.getBlocks(testblock.toTile(rs), ba, ji, tenpai.getTenpai(rs)[1], agari.by_int(32), nuki=2)
+print(tenpai.getTenpai(rs))
+rb = rbs[0]
+print(rbs)
+print(rb.blocks)
+print(honitsu().check(rb, yama))
+print(chiniisou().check(rb, yama))
+
+rs = "p1p1p2p2p3p3p4p4p5p5p6p6z3"
+rbs = blocks.getBlocks(testblock.toTile(rs), ba, ji, tenpai.getTenpai(rs)[1], agari.by_int(32), nuki=2)
+print(tenpai.getTenpai(rs))
+rb = rbs[0]
+print(rbs)
+print(rb.blocks)
+print(honitsu().check(rb, yama))
+print(chiniisou().check(rb, yama))
+
+rs = "z5z5z5z6z6z6z7z7z1z1z1z2z2"
+rbs = blocks.getBlocks(testblock.toTile(rs), ba, ji, tenpai.getTenpai(rs)[0], agari.by_int(32), nuki=2)
+print(tenpai.getTenpai(rs))
+rb = rbs[0]
+print(rbs)
+print(rb.blocks)
+print(shousangen().check(rb, yama))
+print(toitoi().check(rb, yama))
+
+rs = "z1z1z2z2z3z3z4z4z5z5z6z6z7"
+rbs = blocks.getBlocks(testblock.toTile(rs), ba, ji, tenpai.getTenpai(rs)[0], agari.by_int(32), nuki=2)
+print(tenpai.getTenpai(rs))
+rb = rbs[0]
+print(rbs)
+print(rb.blocks)
+print(shousangen().check(rb, yama))
+print(toitoi().check(rb, yama))
+print(chiitoi().check(rb, yama))
+print(honitsu().check(rb, yama))

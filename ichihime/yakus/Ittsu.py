@@ -1,5 +1,3 @@
-from collections import Counter
-
 from ichihime.enums import agaru as _ARU
 from ichihime.enums import block as _BL
 from ichihime.enums import cat as _CT
@@ -15,21 +13,28 @@ from ichihime.src import tenpai as _TP
 from ichihime.src import yama as _YA
 from ichihime.yakus import base
 
+from .Reference.IttsuReference import ITTSUREF
 
-class ryanpeikou(base):
-    menzen_han = 3
-    fuuro_han = None
+
+class ittsu(base):
+    menzen_han = 2
+    fuuro_han = 1
 
     is_min = True
     is_yakuman = False
 
-    name = "Ryanpeikou"
-    eng = "double double sequence"
-    abb = "RPK"
+    name = "Ittsu"
+    eng = "straight"
+    abb = "ITT"
 
     @classmethod
-    def check(cls, block: _BS, yama: _YA = None, *args) -> int:
-        bl1, cnt1 = Counter(block.mentsu).most_common()[1]
-        bl2, cnt2 = Counter(block.mentsu).most_common()[1]
-        if bl1 < _MT.KOUTSU and cnt1 >= 2 and bl2 < _MT.KOUTSU and cnt2 >= 2:
-            return cls.menzen_han if block.is_menzen() else cls.fuuro_han
+    def check(cls, blocks: _BS, yama: _YA = None, *args) -> int | None:
+        if any(all(any(b in blocks.blocks for b in bl) for bl in its) for its in ITTSUREF):
+            return cls.menzen_han if blocks.isMenzen() else cls.fuuro_han
+
+
+class ikkitsuukan(ittsu):
+    pass
+
+
+ikkitsuukan = ittsu

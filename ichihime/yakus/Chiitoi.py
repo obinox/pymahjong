@@ -14,17 +14,30 @@ from ichihime.src import yama as _YA
 from ichihime.yakus import base
 
 
-class temp(base):
-    menzen_han = 0
+class chiitoi(base):
+    menzen_han = 2
     fuuro_han = None
 
     is_min = True
     is_yakuman = False
 
-    name = "None"
-    eng = "None"
-    abb = "None"
+    name = "chiitoitsu"
+    eng = "seven pairs"
+    abb = "CHI"
 
     @classmethod
     def check(cls, blocks: _BS, yama: _YA = None, *args) -> int | None:
-        raise NotImplementedError
+        if blocks.tenpai.machi == _MC.CHI and all(map(lambda x: _BL.isToitsu(x), blocks.blocks)):
+            return cls.menzen_han if blocks.isMenzen() else cls.fuuro_han
+
+
+class chiitoitsu(chiitoi):
+    pass
+
+
+class niconico(chiitoi):
+    pass
+
+
+chiitoitsu = chiitoi
+niconico = chiitoi
