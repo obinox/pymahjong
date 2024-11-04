@@ -1,6 +1,6 @@
 from ichihime.enums import tile as _TL
 
-DEFAULT_DORAREF = {
+DORAREF = {
     ## MANZU
     _TL.MAN1: [_TL.MAN2],
     _TL.MAN2: [_TL.MAN3],
@@ -45,7 +45,7 @@ DEFAULT_DORAREF = {
     _TL.CHUN: [_TL.HAKU],
 }
 
-SANMA_DORAREF = {
+SANMAREF = {
     ## MANZU
     _TL.MAN1: [_TL.MAN9],
     _TL.MAN2: None,

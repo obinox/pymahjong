@@ -1,5 +1,3 @@
-from collections import Counter
-
 from ichihime.enums import agaru as _ARU
 from ichihime.enums import block as _BL
 from ichihime.enums import cat as _CT
@@ -29,8 +27,8 @@ class iipeikou(base):
 
     @classmethod
     def check(cls, blocks: _BS, yama: _YA = None, *args) -> int | None:
-        bl, cnt = Counter(blocks.mentsu).most_common()[0]
-        if _BL.isShuntsu(bl) and cnt >= 2:
+        shun = list(map(lambda x: _BL(x - _MT.AKA) if x % _GR.PIN > _TL.MAN9 else x, blocks.getShuntsu()))
+        if any(map(lambda x: shun.count(x) >= 2, shun)):
             return cls.menzen_han if blocks.isMenzen() else cls.fuuro_han
 
 
@@ -42,14 +40,13 @@ class ryanpeikou(base):
     is_yakuman = False
 
     name = "Ryanpeikou"
-    eng = "double double sequence"
+    eng = "doubled double sequence"
     abb = "RPK"
 
     @classmethod
     def check(cls, blocks: _BS, yama: _YA = None, *args) -> int | None:
-        bl1, cnt1 = Counter(blocks.mentsu).most_common()[0]
-        bl2, cnt2 = Counter(blocks.mentsu).most_common()[1]
-        if _BL.isShuntsu(bl1) and cnt1 >= 2 and _BL.isShuntsu(bl2) and cnt2 >= 2:
+        shun = list(map(lambda x: _BL(x - _MT.AKA) if x % _GR.PIN > _TL.MAN9 else x, blocks.getShuntsu()))
+        if sum(map(lambda x: 1 if shun.count(x) >= 2 else 0, shun)) >= 2:
             return cls.menzen_han if blocks.isMenzen() else cls.fuuro_han
 
 
@@ -73,3 +70,236 @@ ipeko = iipeikou
 rpeko = ryanpeikou
 peko = iipeikou
 pekopeko = ryanpeikou
+
+from .Reference.SharinReference import *
+
+
+class daisharin(base):
+    menzen_han = 13
+    fuuro_han = None
+
+    is_min = True
+    is_yakuman = True
+
+    name = "Daisharin"
+    eng = "wheel of fortune"
+    abb = "DSH"
+
+    @classmethod
+    def check(cls, blocks: _BS, yama: _YA = None, *args) -> int | None:
+        tiles = blocks.getTiles()
+        if all(map(lambda x: any(map(lambda y: tiles.count(y) >= x[1], x[0])), DAISHARINREF.items())):
+            return cls.menzen_han if blocks.isMenzen() else cls.fuuro_han
+
+
+class daichikurin(base):
+    menzen_han = 13
+    fuuro_han = None
+
+    is_min = True
+    is_yakuman = True
+
+    name = "Daichikurin"
+    eng = "bamboo forest"
+    abb = "DCK"
+
+    @classmethod
+    def check(cls, blocks: _BS, yama: _YA = None, *args) -> int | None:
+        tiles = blocks.getTiles()
+        if all(map(lambda x: any(map(lambda y: tiles.count(y) >= x[1], x[0])), DAICHIKURINREF.items())):
+            return cls.menzen_han if blocks.isMenzen() else cls.fuuro_han
+
+
+class daisuurin(base):
+    menzen_han = 13
+    fuuro_han = None
+
+    is_min = True
+    is_yakuman = True
+
+    name = "Daisuurin"
+    eng = "numerous numbers"
+    abb = "DSU"
+
+    @classmethod
+    def check(cls, blocks: _BS, yama: _YA = None, *args) -> int | None:
+        tiles = blocks.getTiles()
+        if all(map(lambda x: any(map(lambda y: tiles.count(y) >= x[1], x[0])), DAISUURINREF.items())):
+            return cls.menzen_han if blocks.isMenzen() else cls.fuuro_han
+
+
+class chunsharin(base):
+    menzen_han = 3
+    fuuro_han = None
+
+    is_min = True
+    is_yakuman = False
+
+    name = "Chunsharin"
+    eng = "wheel of fate"
+    abb = "CSH"
+
+    @classmethod
+    def check(cls, blocks: _BS, yama: _YA = None, *args) -> int | None:
+        tiles = blocks.getTiles()
+        if all(map(lambda x: any(map(lambda y: tiles.count(y) >= x[1], x[0])), CHUNSHARINREF.items())):
+            return cls.menzen_han if blocks.isMenzen() else cls.fuuro_han
+
+
+class chunchikurin(base):
+    menzen_han = 3
+    fuuro_han = None
+
+    is_min = True
+    is_yakuman = False
+
+    name = "Chunchikurin"
+    eng = "bamboo field"
+    abb = "CCK"
+
+    @classmethod
+    def check(cls, blocks: _BS, yama: _YA = None, *args) -> int | None:
+        tiles = blocks.getTiles()
+        if all(map(lambda x: any(map(lambda y: tiles.count(y) >= x[1], x[0])), CHUNCHIKURINREF.items())):
+            return cls.menzen_han if blocks.isMenzen() else cls.fuuro_han
+
+
+class chunsuurin(base):
+    menzen_han = 3
+    fuuro_han = None
+
+    is_min = True
+    is_yakuman = False
+
+    name = "Chunsuurin"
+    eng = "natural numbers"
+    abb = "CSU"
+
+    @classmethod
+    def check(cls, blocks: _BS, yama: _YA = None, *args) -> int | None:
+        tiles = blocks.getTiles()
+        if all(map(lambda x: any(map(lambda y: tiles.count(y) >= x[1], x[0])), CHUNSUURINREF.items())):
+            return cls.menzen_han if blocks.isMenzen() else cls.fuuro_han
+
+
+class shousharin(base):
+    menzen_han = 1
+    fuuro_han = None
+
+    is_min = True
+    is_yakuman = False
+
+    name = "Shousharin"
+    eng = "wheel of destiny"
+    abb = "SSH"
+
+    @classmethod
+    def check(cls, blocks: _BS, yama: _YA = None, *args) -> int | None:
+        tiles = blocks.getTiles()
+        if any(map(lambda r: all(map(lambda x: any(map(lambda y: tiles.count(y) >= x[1], x[0])), r.items())), SHOUSHARINREF)):
+            return cls.menzen_han if blocks.isMenzen() else cls.fuuro_han
+
+
+class shouchikurin(base):
+    menzen_han = 1
+    fuuro_han = None
+
+    is_min = True
+    is_yakuman = False
+
+    name = "Shouchikurin"
+    eng = "bamboo tree"
+    abb = "SCK"
+
+    @classmethod
+    def check(cls, blocks: _BS, yama: _YA = None, *args) -> int | None:
+        tiles = blocks.getTiles()
+        if any(map(lambda r: all(map(lambda x: any(map(lambda y: tiles.count(y) >= x[1], x[0])), r.items())), SHOUCHIKURINREF)):
+            return cls.menzen_han if blocks.isMenzen() else cls.fuuro_han
+
+
+class shousuurin(base):
+    menzen_han = 1
+    fuuro_han = None
+
+    is_min = True
+    is_yakuman = False
+
+    name = "Shousuurin"
+    eng = "normal numbers"
+    abb = "SSU"
+
+    @classmethod
+    def check(cls, blocks: _BS, yama: _YA = None, *args) -> int | None:
+        tiles = blocks.getTiles()
+        if any(map(lambda r: all(map(lambda x: any(map(lambda y: tiles.count(y) >= x[1], x[0])), r.items())), SHOUSUURINREF)):
+            return cls.menzen_han if blocks.isMenzen() else cls.fuuro_han
+
+
+class isshokusanjun(base):
+    menzen_han = 3
+    fuuro_han = 2
+
+    is_min = True
+    is_yakuman = False
+
+    name = "Isshoku sanjun"
+    eng = "triple sequence"
+    abb = "ISS"
+
+    @classmethod
+    def check(cls, blocks: _BS, yama: _YA = None, *args) -> int | None:
+        shun = list(map(lambda x: _BL(x - _MT.AKA) if x % _GR.PIN > _TL.MAN9 else x, blocks.getShuntsu()))
+        if any(map(lambda x: shun.count(x) >= 3, shun)):
+            return cls.menzen_han if blocks.isMenzen() else cls.fuuro_han
+
+
+class isshokuyonjun(base):
+    menzen_han = 13
+    fuuro_han = 13
+
+    is_min = True
+    is_yakuman = True
+
+    name = "Isshoku yonjun"
+    eng = "quadruple sequence"
+    abb = "ISY"
+
+    @classmethod
+    def check(cls, blocks: _BS, yama: _YA = None, *args) -> int | None:
+        shun = list(map(lambda x: _BL(x - _MT.AKA) if x % _GR.PIN > _TL.MAN9 else x, blocks.getShuntsu()))
+        if any(map(lambda x: shun.count(x) >= 4, shun)):
+            return cls.menzen_han if blocks.isMenzen() else cls.fuuro_han
+
+
+class suurentaihou(base):
+    pass
+
+
+suurentaihou = isshokuyonjun
+
+
+class ryanpeikoudoujun(base):
+    menzen_han = 3
+    fuuro_han = None
+
+    is_min = True
+    is_yakuman = False
+
+    name = "Ryanpeikou doujun"
+    eng = "two colored double sequence"
+    abb = "RPK"
+
+    @classmethod
+    def check(cls, blocks: _BS, yama: _YA = None, *args) -> int | None:
+        shun = list(map(lambda x: _BL(x - _MT.AKA) if x % _GR.PIN > _TL.MAN9 else x, blocks.getShuntsu()))
+        shunmod = list(map(lambda x: (_BL(x - _MT.AKA) if x % _GR.PIN > _TL.MAN9 else x).value % _GR.PIN, blocks.getShuntsu()))
+        if sum(map(lambda x: 1 if shun.count(x) >= 2 else 0, shun)) >= 2 and any(map(lambda x: shunmod.count(x) >= 4, shunmod)):
+            return cls.menzen_han if blocks.isMenzen() else cls.fuuro_han
+
+
+class ryandoujun(ryanpeikoudoujun):
+    pass
+
+
+ryanpeikoudoujun = ryandoujun

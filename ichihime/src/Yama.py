@@ -4,7 +4,7 @@ from typing import List
 from ichihime.enums import cat as _CT
 from ichihime.enums import tile as _TL
 
-from .YamaReference import *
+from .YamaConfig import *
 
 
 class yama:
@@ -15,6 +15,7 @@ class yama:
     udoraidc: List[_TL] = []
     idc_open: int = 0
     is_setted = False
+    oya: _TL = _TL.TONN
 
     def __new__(cls) -> None:
         raise AttributeError

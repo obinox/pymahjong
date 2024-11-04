@@ -14,87 +14,81 @@ from ichihime.src import yama as _YA
 from ichihime.yakus import base
 
 
-class chiitoi(base):
-    menzen_han = 2
+class tsumo(base):
+    menzen_han = 1
     fuuro_han = None
 
     is_min = True
     is_yakuman = False
 
-    name = "Chiitoitsu"
-    eng = "seven pairs"
-    abb = "CHI"
+    name = "Menzenchin tsumohou"
+    eng = "all by oneself"
+    abb = "TSM"
 
     @classmethod
     def check(cls, blocks: _BS, yama: _YA = None, *args) -> int | None:
-        if blocks.tenpai.machi == _MC.CHI and all(map(lambda x: _BL.isToitsu(x), blocks.blocks)):
+        if blocks.agari.tsumo == _ARU.TSUMO:
             return cls.menzen_han if blocks.isMenzen() else cls.fuuro_han
 
 
-class chiitoitsu(chiitoi):
-    pass
-
-
-class niconico(chiitoi):
-    pass
-
-
-chiitoitsu = chiitoi
-niconico = chiitoi
-
-
-class daichisei(base):
-    menzen_han = 26
+class tenhou(base):
+    menzen_han = 13
     fuuro_han = None
 
     is_min = True
     is_yakuman = True
 
-    name = "Daichisei"
-    eng = "septentrions"
-    abb = "DCS"
+    name = "Tenhou"
+    eng = "blessing of the heaven"
+    abb = "TNH"
 
     @classmethod
     def check(cls, blocks: _BS, yama: _YA = None, *args) -> int | None:
-        if (
-            blocks.tenpai.machi == _MC.CHI
-            and all(map(lambda x: _BL.isToitsu(x), blocks.blocks))
-            and all(map(lambda x: x in _CT.JIHAI, blocks.getTiles()))
-        ):
+        if blocks.agari.tsumo == _ARU.TSUMO and blocks.agari.ippatsu == _ARU.IPPATSU and (not blocks.agari.riichi) and blocks.jikaze == _YA.oya:
             return cls.menzen_han if blocks.isMenzen() else cls.fuuro_han
 
 
-class sangentoitsu(base):
-    menzen_han = 1
+class chiihou(base):
+    menzen_han = 13
     fuuro_han = None
 
     is_min = True
-    is_yakuman = False
+    is_yakuman = True
 
-    name = "Sangen toitsu"
-    eng = "trinity heads"
-    abb = "SGT"
+    name = "Chiihou"
+    eng = "blessing of the earth"
+    abb = "CHH"
 
     @classmethod
     def check(cls, blocks: _BS, yama: _YA = None, *args) -> int | None:
-        sangen = list(filter(lambda x: x.tiles[0] in _CT.SANGENPAI, blocks.blocks))
-        if blocks.tenpai.machi == _MC.CHI and all(map(lambda x: _BL.isToitsu(x), blocks.blocks)) and len(sangen) == 3:
+        if blocks.agari.tsumo == _ARU.TSUMO and blocks.agari.ippatsu == _ARU.IPPATSU and (not blocks.agari.riichi) and blocks.jikaze != _YA.oya:
             return cls.menzen_han if blocks.isMenzen() else cls.fuuro_han
 
 
-class suushitoitsu(base):
-    menzen_han = 1
+class menzentsumo(tsumo):
+    pass
+
+
+class menzenchintsumohou(tsumo):
+    pass
+
+
+menzentsumo = tsumo
+menzenchintsumohou = tsumo
+
+
+class renhou(base):
+    menzen_han = 13
     fuuro_han = None
 
     is_min = True
-    is_yakuman = False
+    is_yakuman = True
 
-    name = "Suushi toitsu"
-    eng = "tempest heads"
-    abb = "SST"
+    name = "renhou"
+    eng = "blessing of the saint"
+    abb = "REH"
 
     @classmethod
     def check(cls, blocks: _BS, yama: _YA = None, *args) -> int | None:
-        kaze = list(filter(lambda x: x.tiles[0] in _CT.KAZEHAI, blocks.blocks))
-        if blocks.tenpai.machi == _MC.CHI and all(map(lambda x: _BL.isToitsu(x), blocks.blocks)) and len(kaze) == 4:
+        if blocks.agari.tsumo == _ARU.RON and blocks.agari.ippatsu == _ARU.IPPATSU and (not blocks.agari.riichi):
             return cls.menzen_han if blocks.isMenzen() else cls.fuuro_han

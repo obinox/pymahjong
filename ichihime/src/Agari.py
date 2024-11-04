@@ -7,20 +7,20 @@ class agari:
     __slots__ = ("tsumo", "riichi", "aru", "ippatsu")
 
     #       0x00             0x10            0x20
-    # 0x00  tsumo            RCH SMO         DRI SMO
-    # 0x01  rinshan  (tsumo) RCH RIN SMO     DRI RIN SMO
-    # 0x02  haitei   (tsumo) RCH HAI SMO     DRI HAI SMO
+    # 0x00  tsumo            RII SMO         DRI SMO
+    # 0x01  rinshan  (tsumo) RII RIN SMO     DRI RIN SMO
+    # 0x02  haitei   (tsumo) RII HAI SMO     DRI HAI SMO
     # 0x03  x                x               x
-    # 0x04  ron              RCH             DRI
-    # 0x05  chankan    (ron) RCH CHK         x     (chankan) -> valid from kokushi
-    # 0x06  houtei     (ron) RCH HOU         DRI HOU
+    # 0x04  ron              RII             DRI
+    # 0x05  chankan    (ron) RII CHK         x     (chankan) -> valid from kokushi
+    # 0x06  houtei     (ron) RII HOU         DRI HOU
     # 0x07  x                x               x
-    # 0x08  x (ippatsu nomi) RCH IPP SMO     DRI IPP SMO
+    # 0x08  x (ippatsu nomi) RII IPP SMO     DRI IPP SMO
     # 0x09  x                x     (rinshan) x     (rinshan)
-    # 0x0a  x                RCH IPP HAI SMO x  (impossible)
+    # 0x0a  x                RII IPP HAI SMO x  (impossible)
     # 0x0b  x                x               x
-    # 0x0c  x                RCH IPP         DRI IPP
-    # 0x0d  x                RCH IPP CHK     x     (chankan) -> valid from kokushi
+    # 0x0c  x                RII IPP         DRI IPP
+    # 0x0d  x                RII IPP CHK     x     (chankan) -> valid from kokushi
     # 0x0e  x                x      (houtei) x      (houtei)
     # 0x0f  x                x               x
     possibility = [
@@ -88,11 +88,10 @@ class agari:
 
     def __str__(self) -> str:
         return f"[{" ".join(map(lambda x: x.name, filter(None, [self.tsumo, self.riichi, self.aru, self.ippatsu])))}{" KOKUSHI" if self.kokushi else ""}]"
-    
+
     def __repr__(self) -> str:
         return f"{self.__class__.__name__}(0x{self.__hash__():0>2x})"
 
-    
     @classmethod
     def by_int(cls, n: int, kokushi: bool = False) -> Self:
         tsumo = _ARU.TSUMO if n // _ARU.RON % 2 == 0 else _ARU.RON

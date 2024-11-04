@@ -22,7 +22,7 @@ class shousangen(base):
     is_yakuman = False
 
     name = "Shousangen"
-    eng = "little three dragons"
+    eng = "little trinity"
     abb = "SSG"
 
     @classmethod
@@ -41,7 +41,7 @@ class daisangen(base):
     is_yakuman = True
 
     name = "Daisangen"
-    eng = "big three dragons"
+    eng = "big trinity"
     abb = "DSG"
 
     @classmethod

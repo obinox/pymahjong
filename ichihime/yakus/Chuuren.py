@@ -13,68 +13,63 @@ from ichihime.src import tenpai as _TP
 from ichihime.src import yama as _YA
 from ichihime.yakus import base
 
+from .Reference.ChuurenReference import CHUURENREF
 
-class kokushi(base):
+
+class chuuren(base):
     menzen_han = 13
     fuuro_han = None
 
     is_min = True
     is_yakuman = True
 
-    name = "Kokushi musou"
-    eng = "thirteen orphans"
-    abb = "KMU"
+    name = "Chuuren poutou"
+    eng = "nine lotus lantern"
+    abb = "CRP"
 
     @classmethod
     def check(cls, blocks: _BS, yama: _YA = None, *args) -> int | None:
-        if blocks.tenpai.machi in {_MC.KMU, _MC.K13} and all(map(lambda x: _BL.isKokushi(x), blocks.blocks)):
+        tiles = blocks.getTiles()
+        if any(map(lambda r: all(map(lambda x: any(map(lambda y: tiles.count(y) >= x[1], x[0])), r.items())), CHUURENREF)):
             return cls.menzen_han if blocks.isMenzen() else cls.fuuro_han
 
 
-class juusan(base):
+class junsei(base):
     menzen_han = 26
     fuuro_han = None
 
     is_min = True
     is_yakuman = True
 
-    name = "Kokushi musou 13-men machi"
-    eng = "all out thirteen orphans"
-    abb = "KMJ"
+    name = "Junsei chuuren poutou"
+    eng = "white nine lotus lantern"
+    abb = "JCR"
 
     @classmethod
     def check(cls, blocks: _BS, yama: _YA = None, *args) -> int | None:
-        if blocks.tenpai.machi == _MC.K13 and all(map(lambda x: _BL.isKokushi(x), blocks.blocks)):
+        tiles = list(blocks.getTiles())
+        tiles.remove(blocks.tenpai.tile)
+        if any(map(lambda r: all(map(lambda x: any(map(lambda y: tiles.count(y) == x[1], x[0])), r.items())), CHUURENREF)):
             return cls.menzen_han if blocks.isMenzen() else cls.fuuro_han
 
 
-class kokushimusou(kokushi):
+class chuurenpoutou(chuuren):
     pass
 
 
-class kokushi13(juusan):
+class junseichuurenpoutou(junsei):
     pass
 
 
-class juusanmen(juusan):
+class kyuumen(junsei):
     pass
 
 
-class juusanmenmachi(juusan):
+class chuurenkyuumenmachi(junsei):
     pass
 
 
-class kokushijuusanmenmachi(juusan):
-    pass
-
-
-class kokushimusoujuusanmenmachi(juusan):
-    pass
-
-
-kokushimusou = kokushi
-kokushi13 = juusan
-juusanmen = juusan
-juusanmenmachi = juusan
-kokushijuusanmenmachi = juusan
-kokushimusoujuusanmenmachi = juusan
+chuurenpoutou = chuuren
+junseichuurenpoutou = junsei
+kyuumen = junsei
+chuurenkyuumenmachi = junsei

@@ -37,7 +37,7 @@ print(uradora().check(b1, yama))
 print(nukidora().check(b1, yama))
 print(akadora().check(b1, yama))
 
-rs = "m2m2m3m3m4m4m5m6m6m7m7m8m8"
+rs = "m2m2m3m3m4m4m0m6m6m7m7m8m8"
 rbs = blocks.getBlocks(testblock.toTile(rs), ba, ji, tenpai.getTenpai(rs)[3], agari.by_int(32), nuki=2)
 print(tenpai.getTenpai(rs))
 rb = rbs[0]
@@ -49,14 +49,14 @@ print(ryanpeikou().check(rb, yama))
 print(pinfu().check(rb, yama))
 print(tanyao().check(rb, yama))
 
-rs = "m1m2m3m4m0m6m7m8m9m1m2m3m4"
+rs = "m1m2m3m4m0m6m7m8m9m1m4m5m6"
 rbs = blocks.getBlocks(testblock.toTile(rs), ba, ji, tenpai.getTenpai(rs)[1], agari.by_int(32), nuki=2)
 print(tenpai.getTenpai(rs))
 rb = rbs[0]
 print(rbs)
 print(rb.blocks)
 print(ittsu().check(rb, yama))
-print(ikkitsuukan().check(rb, yama))
+print(iipeikou().check(rb, yama))
 
 rs = "m1m2m3p1p2p3s1s2s3m8m9m9m9"
 rbs = blocks.getBlocks(testblock.toTile(rs), ba, ji, tenpai.getTenpai(rs)[0], agari.by_int(32), nuki=2)
@@ -158,3 +158,40 @@ print(shousangen().check(rb, yama))
 print(toitoi().check(rb, yama))
 print(chiitoi().check(rb, yama))
 print(honitsu().check(rb, yama))
+
+rs = "m1m9p1p9s1s9z1z2z3z4z4z5z6"
+rbs = blocks.getBlocks(testblock.toTile(rs), ba, ji, tenpai.getTenpai(rs)[0], agari.by_int(32), nuki=2)
+print(tenpai.getTenpai(rs))
+rb = rbs[0]
+print(rbs)
+print(rb.blocks)
+print(kokushi().check(rb, yama))
+print(juusanmen().check(rb, yama))
+
+rs = "m1m9p1p9s1s9z1z2z3z4z5z6z7"
+rbs = blocks.getBlocks(testblock.toTile(rs), ba, ji, tenpai.getTenpai(rs)[0], agari.by_int(32), nuki=2)
+print(tenpai.getTenpai(rs))
+rb = rbs[0]
+print(rbs)
+print(rb.blocks)
+print(kokushi().check(rb, yama))
+print(kokushi13().check(rb, yama))
+
+rs = "m1m1m1m2m3m4m5m6m7m8m9m9m9"
+rbs = blocks.getBlocks(testblock.toTile(rs), ba, ji, tenpai.getTenpai(rs)[0], agari.by_int(32), nuki=2)
+print(tenpai.getTenpai(rs))
+rb = rbs[0]
+print(rbs)
+print(rb.blocks)
+print(chuuren().check(rb, yama))
+print(kyuumen().check(rb, yama))
+
+rs = "s1s1s1s2s2s3s4s5s6s7s8s9s9"
+rbs = blocks.getBlocks(testblock.toTile(rs), ba, ji, tenpai.getTenpai(rs)[1], agari.by_int(32), nuki=2)
+print(tenpai.getTenpai(rs))
+rb = rbs[0]
+print(rbs)
+print(rb.blocks)
+print(chuuren().check(rb, yama))
+print(kyuumen().check(rb, yama))
+

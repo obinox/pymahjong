@@ -228,6 +228,10 @@ class block(IntEnum):
         return _MT.KANTSU < b % _FU.KAMI < _FU.KAMI
 
     @staticmethod
+    def isKokushi(b: Self) -> bool:
+        return _MT.KOKUSHI < b
+
+    @staticmethod
     def isAnkou(b: Self) -> bool:
         return block.isKoutsu(b) and b < _FU.KAMI
 

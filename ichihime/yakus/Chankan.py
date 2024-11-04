@@ -14,35 +14,35 @@ from ichihime.src import yama as _YA
 from ichihime.yakus import base
 
 
-class tanyao(base):
+class chankan(base):
     menzen_han = 1
     fuuro_han = 1
 
     is_min = True
     is_yakuman = False
 
-    name = "Tanyao"
-    eng = "all simples"
-    abb = "TAN"
+    name = "Chankan"
+    eng = "robbing a quad"
+    abb = "CHK"
 
     @classmethod
     def check(cls, blocks: _BS, yama: _YA = None, *args) -> int | None:
-        if _CT.allIn(sum(map(lambda x: x.tiles, blocks.blocks), ()), _CT.CHUNCHANHAI):
+        if blocks.agari.aru == _ARU.RINSHAN:
             return cls.menzen_han if blocks.isMenzen() else cls.fuuro_han
 
 
-class kuitan(base):
+class chanpei(base):
     menzen_han = 1
     fuuro_han = 1
 
     is_min = True
     is_yakuman = False
 
-    name = "Tanyao"
-    eng = "open simples"
-    abb = "KTN"
+    name = "Chanpei"
+    eng = "robbing a north"
+    abb = "CHP"
 
     @classmethod
     def check(cls, blocks: _BS, yama: _YA = None, *args) -> int | None:
-        if _CT.allIn(sum(map(lambda x: x.tiles, blocks.blocks), ()), _CT.CHUNCHANHAI):
+        if blocks.agari.aru == _ARU.RINSHAN:
             return cls.menzen_han if blocks.isMenzen() else cls.fuuro_han

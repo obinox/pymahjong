@@ -22,7 +22,7 @@ class shousuushii(base):
     is_yakuman = True
 
     name = "Shousuushii"
-    eng = "little four winds"
+    eng = "little tempest"
     abb = "SSS"
 
     @classmethod
@@ -41,11 +41,29 @@ class daisuushii(base):
     is_yakuman = True
 
     name = "Daisuushii"
-    eng = "big four winds"
+    eng = "big tempest"
     abb = "DSS"
 
     @classmethod
     def check(cls, blocks: _BS, yama: _YA = None, *args) -> int | None:
         kaze = list(filter(lambda x: x.tiles[0] in _CT.KAZEHAI and (_BL.isKoutsu(x) or _BL.isKantsu(x)), blocks.blocks))
         if len(kaze) == 4:
+            return cls.menzen_han if blocks.isMenzen() else cls.fuuro_han
+
+
+class sanpuukou(base):
+    menzen_han = 2
+    fuuro_han = 2
+
+    is_min = True
+    is_yakuman = False
+
+    name = "Sanpuukou"
+    eng = "third wind"
+    abb = "SPU"
+
+    @classmethod
+    def check(cls, blocks: _BS, yama: _YA = None, *args) -> int | None:
+        kaze = list(filter(lambda x: x.tiles[0] in _CT.KAZEHAI and (_BL.isKoutsu(x) or _BL.isKantsu(x)), blocks.blocks))
+        if len(kaze) >= 3:
             return cls.menzen_han if blocks.isMenzen() else cls.fuuro_han

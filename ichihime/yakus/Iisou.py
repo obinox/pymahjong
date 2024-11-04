@@ -27,11 +27,8 @@ class honiisou(base):
 
     @classmethod
     def check(cls, blocks: _BS, yama: _YA = None, *args) -> int | None:
-        if (
-            all(map(lambda x: x in _CT.HONMANZUA, blocks.getTiles()))
-            or all(map(lambda x: x in _CT.HONPINZUA, blocks.getTiles()))
-            or all(map(lambda x: x in _CT.HONSOUZUA, blocks.getTiles()))
-        ) and any(map(lambda x: x in _CT.SHUUPAIA, blocks.getTiles())):
+        cts = _CT.HONMANZUA, _CT.HONPINZUA, _CT.HONSOUZUA
+        if any(map(lambda y: all(map(lambda x: x in y, blocks.getTiles())), cts)) and any(map(lambda x: x in _CT.SHUUPAIA, blocks.getTiles())):
             return cls.menzen_han if blocks.isMenzen() else cls.fuuro_han
 
 
@@ -48,11 +45,8 @@ class chiniisou(base):
 
     @classmethod
     def check(cls, blocks: _BS, yama: _YA = None, *args) -> int | None:
-        if (
-            all(map(lambda x: x in _CT.MANZUA, blocks.getTiles()))
-            or all(map(lambda x: x in _CT.PINZUA, blocks.getTiles()))
-            or all(map(lambda x: x in _CT.SOUZUA, blocks.getTiles()))
-        ):
+        cts = _CT.MANZUA, _CT.PINZUA, _CT.SOUZUA
+        if any(map(lambda y: all(map(lambda x: x in y, blocks.getTiles())), cts)):
             return cls.menzen_han if blocks.isMenzen() else cls.fuuro_han
 
 
@@ -100,3 +94,54 @@ class chinitsu(chiniisou):
 
 honitsu = honiisou
 chinitsu = chiniisou
+
+
+class junseiryuiisou(base):
+    menzen_han = 26
+    fuuro_han = 26
+
+    is_min = True
+    is_yakuman = True
+
+    name = "Junsei ryuiisou"
+    eng = "pure greens"
+    abb = "JRI"
+
+    @classmethod
+    def check(cls, blocks: _BS, yama: _YA = None, *args) -> int | None:
+        if all(map(lambda x: x in _CT.MIDORIPAI, blocks.getTiles())) and all(map(lambda x: x in _CT.SOUZUA, blocks.getTiles())):
+            return cls.menzen_han if blocks.isMenzen() else cls.fuuro_han
+
+
+class benikujku(base):
+    menzen_han = 13
+    fuuro_han = 13
+
+    is_min = True
+    is_yakuman = True
+
+    name = "Benikujaku"
+    eng = "red peakcok"
+    abb = "BEN"
+
+    @classmethod
+    def check(cls, blocks: _BS, yama: _YA = None, *args) -> int | None:
+        if all(map(lambda x: x in _CT.JAKUPAI, blocks.getTiles())):
+            return cls.menzen_han if blocks.isMenzen() else cls.fuuro_han
+
+
+class kokuiisou(base):
+    menzen_han = 13
+    fuuro_han = 13
+
+    is_min = True
+    is_yakuman = True
+
+    name = "Kokuiisou"
+    eng = "all blacks"
+    abb = "KKI"
+
+    @classmethod
+    def check(cls, blocks: _BS, yama: _YA = None, *args) -> int | None:
+        if all(map(lambda x: x in _CT.KUROPAI, blocks.getTiles())):
+            return cls.menzen_han if blocks.isMenzen() else cls.fuuro_han

@@ -14,52 +14,81 @@ from ichihime.src import yama as _YA
 from ichihime.yakus import base
 
 
-class sanankou(base):
-    menzen_han = 2
-    fuuro_han = 2
+class haitei(base):
+    menzen_han = 1
+    fuuro_han = 1
 
     is_min = True
     is_yakuman = False
 
-    name = "sanankou"
-    eng = "three concealed triplets"
-    abb = "SNA"
+    name = "Haitei raoyue"
+    eng = "pulling the moon under the sea"
+    abb = "HAI"
 
     @classmethod
     def check(cls, blocks: _BS, yama: _YA = None, *args) -> int | None:
-        if sum(map(lambda x: 1 if _BL.isAnkou(x) or _BL.isAnkan(x) else 0, blocks.blocks)) >= 3:
+        if blocks.agari.aru == _ARU.HAITEI:
             return cls.menzen_han if blocks.isMenzen() else cls.fuuro_han
 
 
-class suuankou(base):
+class houtei(base):
+    menzen_han = 1
+    fuuro_han = 1
+
+    is_min = True
+    is_yakuman = False
+
+    name = "Houtei raoyui"
+    eng = "fishing under the riverbed"
+    abb = "HOU"
+
+    @classmethod
+    def check(cls, blocks: _BS, yama: _YA = None, *args) -> int | None:
+        if blocks.agari.aru == _ARU.HOUTEI:
+            return cls.menzen_han if blocks.isMenzen() else cls.fuuro_han
+
+
+class haiteiraoyue(haitei):
+    pass
+
+
+class houteiraoyui(houtei):
+    pass
+
+
+class haiteitsumo(haitei):
+    pass
+
+
+class haiteiron(houtei):
+    pass
+
+
+haiteiraoyue = haitei
+houteiraoyui = houtei
+haiteitsumo = haitei
+haiteiron = houtei
+
+
+class ishinouenimosannen(base):
     menzen_han = 13
     fuuro_han = None
 
     is_min = True
     is_yakuman = True
 
-    name = "suuankou"
-    eng = "four concealed triplets"
-    abb = "SUA"
+    name = "Ishino uenimo sannen"
+    eng = "three years on a rock"
+    abb = "ISH"
 
     @classmethod
     def check(cls, blocks: _BS, yama: _YA = None, *args) -> int | None:
-        if sum(map(lambda x: 1 if _BL.isAnkou(x) or _BL.isAnkan(x) else 0, blocks.blocks)) >= 4:
+        if blocks.agari.riichi == _ARU.DABURI and blocks.agari.aru in {_ARU.HAITEI, _ARU.HOUTEI}:
             return cls.menzen_han if blocks.isMenzen() else cls.fuuro_han
 
 
-class tanki(base):
-    menzen_han = 26
-    fuuro_han = None
+class ishisan(ishinouenimosannen):
+    pass
 
-    is_min = True
-    is_yakuman = True
 
-    name = "suuankou"
-    eng = "four concealed triplets"
-    abb = "SUA"
-
-    @classmethod
-    def check(cls, blocks: _BS, yama: _YA = None, *args) -> int | None:
-        if sum(map(lambda x: 1 if _BL.isAnkou(x) or _BL.isAnkan(x) else 0, blocks.blocks)) >= 4 and blocks.tenpai.machi == _MC.TAN:
-            return cls.menzen_han if blocks.isMenzen() else cls.fuuro_han
+ishisan = ishinouenimosannen

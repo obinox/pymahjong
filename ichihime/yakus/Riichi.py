@@ -14,87 +14,88 @@ from ichihime.src import yama as _YA
 from ichihime.yakus import base
 
 
-class chiitoi(base):
+class riichi(base):
+    menzen_han = 1
+    fuuro_han = None
+
+    is_min = True
+    is_yakuman = False
+
+    name = "Riichi"
+    eng = "fixed"
+    abb = "RII"
+
+    @classmethod
+    def check(cls, blocks: _BS, yama: _YA = None, *args) -> int | None:
+        if blocks.agari.riichi == _ARU.RIICHI:
+            return cls.menzen_han if blocks.isMenzen() else cls.fuuro_han
+
+
+class daburi(base):
     menzen_han = 2
     fuuro_han = None
 
     is_min = True
     is_yakuman = False
 
-    name = "Chiitoitsu"
-    eng = "seven pairs"
-    abb = "CHI"
+    name = "Daburu riichi"
+    eng = "fixed from the beginning"
+    abb = "DRI"
 
     @classmethod
     def check(cls, blocks: _BS, yama: _YA = None, *args) -> int | None:
-        if blocks.tenpai.machi == _MC.CHI and all(map(lambda x: _BL.isToitsu(x), blocks.blocks)):
+        if blocks.agari.riichi == _ARU.DABURI:
             return cls.menzen_han if blocks.isMenzen() else cls.fuuro_han
 
 
-class chiitoitsu(chiitoi):
-    pass
-
-
-class niconico(chiitoi):
-    pass
-
-
-chiitoitsu = chiitoi
-niconico = chiitoi
-
-
-class daichisei(base):
-    menzen_han = 26
+class ippatsu(base):
+    menzen_han = 1
     fuuro_han = None
 
-    is_min = True
-    is_yakuman = True
+    is_min = False
+    is_yakuman = False
 
-    name = "Daichisei"
-    eng = "septentrions"
-    abb = "DCS"
+    name = "Ippatsu"
+    eng = "one shot"
+    abb = "IPP"
 
     @classmethod
     def check(cls, blocks: _BS, yama: _YA = None, *args) -> int | None:
-        if (
-            blocks.tenpai.machi == _MC.CHI
-            and all(map(lambda x: _BL.isToitsu(x), blocks.blocks))
-            and all(map(lambda x: x in _CT.JIHAI, blocks.getTiles()))
-        ):
+        if blocks.agari.ippatsu == _ARU.IPPATSU:
             return cls.menzen_han if blocks.isMenzen() else cls.fuuro_han
 
 
-class sangentoitsu(base):
+class dabururiichi(daburi):
+    pass
+
+
+class doubleriichi(daburi):
+    pass
+
+
+dabururiichi = daburi
+doubleriichi = daburi
+
+
+class openri(base):
     menzen_han = 1
     fuuro_han = None
 
     is_min = True
     is_yakuman = False
 
-    name = "Sangen toitsu"
-    eng = "trinity heads"
-    abb = "SGT"
+    name = "Open riichi"
+    eng = "fixed with open"
+    abb = "ORI"
 
     @classmethod
     def check(cls, blocks: _BS, yama: _YA = None, *args) -> int | None:
-        sangen = list(filter(lambda x: x.tiles[0] in _CT.SANGENPAI, blocks.blocks))
-        if blocks.tenpai.machi == _MC.CHI and all(map(lambda x: _BL.isToitsu(x), blocks.blocks)) and len(sangen) == 3:
+        if blocks.agari.riichi == _ARU.OPENRI:
             return cls.menzen_han if blocks.isMenzen() else cls.fuuro_han
 
 
-class suushitoitsu(base):
-    menzen_han = 1
-    fuuro_han = None
+class openriichi(openri):
+    pass
 
-    is_min = True
-    is_yakuman = False
 
-    name = "Suushi toitsu"
-    eng = "tempest heads"
-    abb = "SST"
-
-    @classmethod
-    def check(cls, blocks: _BS, yama: _YA = None, *args) -> int | None:
-        kaze = list(filter(lambda x: x.tiles[0] in _CT.KAZEHAI, blocks.blocks))
-        if blocks.tenpai.machi == _MC.CHI and all(map(lambda x: _BL.isToitsu(x), blocks.blocks)) and len(kaze) == 4:
-            return cls.menzen_han if blocks.isMenzen() else cls.fuuro_han
+openriichi = openri
